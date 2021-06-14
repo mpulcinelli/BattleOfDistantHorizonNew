@@ -1,0 +1,18 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{0004FE4A-08D9-0B32-08D1-6E9851261178}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "BattleOfDistantHoriz",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"UMG",
+				"CoreUObject"
+			]
+		}
+	]
+}
