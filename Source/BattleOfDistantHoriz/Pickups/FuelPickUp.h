@@ -15,9 +15,7 @@ class BATTLEOFDISTANTHORIZ_API AFuelPickUp : public APickUpBase
 	GENERATED_BODY()
 
 public:
-
-	AFuelPickUp(const FObjectInitializer& ObjectInitializer);
-	
+	AFuelPickUp(const FObjectInitializer &ObjectInitializer);
 
 	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class URectLightComponent *TopLigh;
@@ -25,19 +23,37 @@ public:
 	UPROPERTY(Category = ParticleSystem, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UParticleSystemComponent *BoltParticle;
 
-
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private:
 	UFUNCTION()
-	void PickUpMeshBeginOverlap(class UPrimitiveComponent* OverlappedComp, class AActor* Other, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void PickUpMeshBeginOverlap(class UPrimitiveComponent *OverlappedComp, class AActor *Other, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
 	UFUNCTION()
-	void BoltParticleFinished(class UParticleSystemComponent* PSystem);
-	
+	void BoltParticleFinished(class UParticleSystemComponent *PSystem);
+
 	float QuantidadeCarga;
-	bool bUsedCharge=false;
+	bool bUsedCharge = false;
+
+	FTimerHandle TriggerBoltTimerHandle;
+	UFUNCTION()
+	void TriggerBoltParticle();
+
+	FORCEINLINE float TimeToRepeatBolt(float Carga) const
+	{
+		float particleRepeat;
+		if (Carga < 30.0)
+			particleRepeat = 5.0;
+		if (Carga >= 30.0 && Carga < 40.0)
+			particleRepeat = 4.5;
+		if (Carga >= 40.0 && Carga < 60.0)
+			particleRepeat = 3.0;
+		if (Carga >= 60.0 && Carga < 80.0)
+			particleRepeat = 2.0;
+		if (Carga >= 80.0)
+			particleRepeat = 1.0;
+		return particleRepeat;
+	}
 };

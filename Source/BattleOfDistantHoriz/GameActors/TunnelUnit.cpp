@@ -132,8 +132,8 @@ void ATunnelUnit::BeginPlay()
 	if (FMath::RandRange(1, 5) == 3)
 		AddPickUpStar();
 	
-	// 20% de probabilidade de executar
-	if (FMath::RandRange(1, 5) == 3)
+	// 10% de probabilidade de executar
+	if (FMath::RandRange(1, 10) == 5)
 		AddPickUpFuel();
 }
 

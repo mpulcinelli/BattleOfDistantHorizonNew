@@ -18,6 +18,7 @@ AFuelPickUp::AFuelPickUp(const FObjectInitializer &ObjectInitializer) : Super(Ob
 
     BoltParticle->SetupAttachment(RootComponent);
     BoltParticle->SetRelativeLocation(FVector(0.000000, 0.000000, 420.000000));
+    BoltParticle->SetRelativeScale3D(FVector(2.000000,2.000000,2.000000));
 
     TopLigh->SetupAttachment(RootComponent);
     TopLigh->SetRelativeLocation(FVector(0.000000, 0.000000, 880.000000));
@@ -45,6 +46,8 @@ void AFuelPickUp::BeginPlay()
 
     PickUpMesh->OnComponentBeginOverlap.AddDynamic(this, &AFuelPickUp::PickUpMeshBeginOverlap);
     BoltParticle->OnSystemFinished.AddDynamic(this, &AFuelPickUp::BoltParticleFinished);
+
+    GetWorld()->GetTimerManager().SetTimer(TriggerBoltTimerHandle, this, &AFuelPickUp::TriggerBoltParticle, TimeToRepeatBolt(QuantidadeCarga), true, 0);
 }
 
 
@@ -65,7 +68,12 @@ void AFuelPickUp::PickUpMeshBeginOverlap(class UPrimitiveComponent *OverlappedCo
 
 void AFuelPickUp::BoltParticleFinished(class UParticleSystemComponent* PSystem) 
 {
-    BoltParticle->ResetParticles();
-    BoltParticle->Activate(true);
     UE_LOG(LogTemp, Warning, TEXT("BoltParticleFinished"));
+}
+
+void AFuelPickUp::TriggerBoltParticle() 
+{
+    BoltParticle->Deactivate();
+    BoltParticle->Activate();
+    UE_LOG(LogTemp, Warning, TEXT("TriggerBoltParticle - %s"), *this->GetName());
 }
