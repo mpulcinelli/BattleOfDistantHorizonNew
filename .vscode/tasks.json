@@ -1,0 +1,1985 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "BattleOfDistantHoriz Mac Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Mac Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Mac DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Mac Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Mac Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Mac Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Mac Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Mac",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz IOS Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz IOS DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz IOS Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz IOS Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz IOS Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz IOS Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"IOS",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Android Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Android DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Android Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Android Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Android Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Android Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Android",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Linux Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Linux DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Linux Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Linux Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz Linux Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz Linux Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"Linux",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz LinuxAArch64 Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz LinuxAArch64 DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz LinuxAArch64 Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz LinuxAArch64 Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz LinuxAArch64 Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz LinuxAArch64 Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"LinuxAArch64",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz TVOS Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz TVOS DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz TVOS Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Shipping Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Shipping Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz TVOS Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Shipping Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Shipping",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Test Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Test Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHoriz TVOS Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHoriz TVOS Test Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHoriz",
+				"TVOS",
+				"Test",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHorizEditor Linux Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHorizEditor Linux DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHorizEditor Linux Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Linux Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Linux",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac Debug Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac Debug Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHorizEditor Mac Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac Debug Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"Debug",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac DebugGame Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHorizEditor Mac DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac DebugGame Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"DebugGame",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac Development Build",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac Development Rebuild",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"BattleOfDistantHorizEditor Mac Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		},
+		{
+			"label": "BattleOfDistantHorizEditor Mac Development Clean",
+			"group": "build",
+			"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+			"args": [
+				"BattleOfDistantHorizEditor",
+				"Mac",
+				"Development",
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-waitmutex",
+				"-clean"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "/opt/UnrealEngine"
+			}
+		}
+	]
+}

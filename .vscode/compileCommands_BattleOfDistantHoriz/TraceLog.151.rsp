@@ -1,0 +1,8 @@
+-include "/opt/UnrealEngine/Engine/Intermediate/Build/Linux/B4D820EA/UE4Editor/Development/TraceLog/Definitions.h"
+-I"/opt/UnrealEngine/Engine/Source"
+-I"/opt/UnrealEngine/Engine/Source/Runtime/TraceLog/Private"
+-I"/opt/UnrealEngine/Engine/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/TraceLog"
+-I"/opt/UnrealEngine/Engine/Source/Runtime"
+-I"/opt/UnrealEngine/Engine/Source/Runtime/TraceLog/Public"
+-I"/opt/UnrealEngine/Engine/Intermediate/Build/Linux/B4D820EA/UE4Editor/Inc/Core"
+-I"/opt/UnrealEngine/Engine/Source/Runtime/Core/Public"

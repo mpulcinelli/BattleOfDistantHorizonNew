@@ -1,0 +1,104 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "BattleOfDistantHoriz (Debug)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHoriz Linux Debug Build",
+			"program": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Binaries/Linux/BattleOfDistantHoriz-Linux-Debug",
+			"args": [
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "BattleOfDistantHoriz (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHoriz Linux DebugGame Build",
+			"program": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Binaries/Linux/BattleOfDistantHoriz-Linux-DebugGame",
+			"args": [
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "BattleOfDistantHoriz (Development)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHoriz Linux Development Build",
+			"program": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Binaries/Linux/BattleOfDistantHoriz",
+			"args": [
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "BattleOfDistantHoriz (Shipping)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHoriz Linux Shipping Build",
+			"program": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Binaries/Linux/BattleOfDistantHoriz-Linux-Shipping",
+			"args": [
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "BattleOfDistantHoriz (Test)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHoriz Linux Test Build",
+			"program": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Binaries/Linux/BattleOfDistantHoriz-Linux-Test",
+			"args": [
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "BattleOfDistantHorizEditor (Debug)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHorizEditor Linux Debug Build",
+			"program": "/opt/UnrealEngine/Engine/Binaries/Linux/UE4Editor-Linux-Debug",
+			"args": [
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject"
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "BattleOfDistantHorizEditor (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHorizEditor Linux DebugGame Build",
+			"program": "/opt/UnrealEngine/Engine/Binaries/Linux/UE4Editor-Linux-DebugGame",
+			"args": [
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject"
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "BattleOfDistantHorizEditor (Development)",
+			"request": "launch",
+			"preLaunchTask": "BattleOfDistantHorizEditor Linux Development Build",
+			"program": "/opt/UnrealEngine/Engine/Binaries/Linux/UE4Editor",
+			"args": [
+				"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject"
+			],
+			"cwd": "/opt/UnrealEngine",
+			"type": "lldb"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "mono",
+			"request": "launch",
+			"program": "/opt/UnrealEngine/Engine/Binaries/DotNET/UnrealBuildTool.exe",
+			"console": "internalConsole",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=/home/mp/Documents/UEProjects/BattleOfDistantHorizon/BattleOfDistantHoriz.uproject",
+				"-game",
+				"-engine"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"cwd": "/opt/UnrealEngine"
+		}
+	]
+}

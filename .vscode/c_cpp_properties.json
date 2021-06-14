@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "BattleOfDistantHorizEditor Editor Linux Development (BattleOfDistantHoriz)",
+            "intelliSenseMode": "clang-x64",
+            "compileCommands": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz.json",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+			"includePath": [
+				"${workspaceFolder}/**"
+			]
+        },
+        {
+            "name": "Linux",
+            "intelliSenseMode": "clang-x64",
+            "compileCommands": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_Default.json",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+			"includePath": [
+				"${workspaceFolder}/**"
+			]
+        }
+    ],
+    "version": 4
+}
