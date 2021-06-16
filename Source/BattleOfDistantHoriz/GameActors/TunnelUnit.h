@@ -54,6 +54,7 @@ protected:
 	
 	void AddPickUpFuel();
 	void AddPickUpStar();
+	void AddLaserWall();
 
 	void GetRandomPointIn3DBoxSpace(FVector &RandomPoint, class UBoxComponent* BoundingBox);
 	

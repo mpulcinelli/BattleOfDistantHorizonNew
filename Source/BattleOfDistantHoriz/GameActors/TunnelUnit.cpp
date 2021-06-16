@@ -14,6 +14,7 @@
 #include "Components/ArrowComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "BattleOfDistantHoriz/GameActors/TunnelGenerator.h"
+#include "BattleOfDistantHoriz/Obstacles/LaserWallObstacle.h"
 // Sets default values
 ATunnelUnit::ATunnelUnit()
 {
@@ -143,6 +144,8 @@ void ATunnelUnit::BeginPlay()
 	// 10% de probabilidade de executar
 	if (FMath::RandRange(1, 10) == 5)
 		AddPickUpFuel();
+
+	AddLaserWall();
 }
 
 void ATunnelUnit::BeginDestroy()
@@ -187,6 +190,28 @@ void ATunnelUnit::AddPickUpStar()
 		ListOfCreatedActors.Add(start);
 
 		start->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+	}
+}
+
+void ATunnelUnit::AddLaserWall()
+{
+	FVector PointToSpawn = FVector(0.0, 0.0, 0.0);
+	FActorSpawnParameters SpawnInfo;
+	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	FRotator RotationToSpawn = FRotator(0.0f);
+
+	PointToSpawn.X =  AreaToSpawnFuelPickUp->GetComponentLocation().X;
+	PointToSpawn.Y =  AreaToSpawnFuelPickUp->GetComponentLocation().Y;
+
+	UE_LOG(LogTemp, Warning, TEXT("AddLaserWall:: %s"), *AreaToSpawnFuelPickUp->GetComponentLocation().ToString());
+
+	auto wall = GetWorld()->SpawnActor<ALaserWallObstacle>(PointToSpawn, RotationToSpawn, SpawnInfo);
+
+	if (wall != nullptr)
+	{
+		ListOfCreatedActors.Add(wall);
+
+		wall->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
 	}
 }
 

@@ -173,5 +173,25 @@
 		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Pickups/FuelPickUp.cpp",
 		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
 		"directory": "/opt/UnrealEngine/Engine/Source"
-	}
+	},
+	{
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/ObstableBase.h",
+		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
+		"directory": "/opt/UnrealEngine/Engine/Source"
+	},
+	{
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/ObstableBase.cpp",
+		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
+		"directory": "/opt/UnrealEngine/Engine/Source"
+	},
+	{
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/LaserWallObstacle.h",
+		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
+		"directory": "/opt/UnrealEngine/Engine/Source"
+	},
+	{
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/LaserWallObstacle.cpp",
+		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
+		"directory": "/opt/UnrealEngine/Engine/Source"
+	}	
 ]
