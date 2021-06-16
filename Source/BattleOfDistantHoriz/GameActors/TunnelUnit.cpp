@@ -12,7 +12,8 @@
 #include "BattleOfDistantHoriz/Pickups/FuelPickUp.h"
 #include "Components/PointLightComponent.h"
 #include "Components/ArrowComponent.h"
-
+#include "Kismet/GameplayStatics.h"
+#include "BattleOfDistantHoriz/GameActors/TunnelGenerator.h"
 // Sets default values
 ATunnelUnit::ATunnelUnit()
 {
@@ -130,8 +131,15 @@ void ATunnelUnit::BeginPlay()
 
 	// 20% de probabilidade de executar
 	if (FMath::RandRange(1, 5) == 3)
-		AddPickUpStar();
-	
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 8);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
 	// 10% de probabilidade de executar
 	if (FMath::RandRange(1, 10) == 5)
 		AddPickUpFuel();
@@ -147,7 +155,7 @@ void ATunnelUnit::AddPickUpFuel()
 	FVector RandPointToFuel;
 	FActorSpawnParameters SpawnInfo;
 	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	FRotator RotationToSpawn;
+	FRotator RotationToSpawn = FRotator(0.0f);
 
 	GetRandomPointIn3DBoxSpace(RandPointToFuel, AreaToSpawnFuelPickUp);
 
@@ -196,6 +204,16 @@ void ATunnelUnit::EndTriggerBeginOverlap(class UPrimitiveComponent *OverlappedCo
 
 	if (isPlayer != nullptr)
 	{
+
+		TArray<AActor *> TunnelGeneratorList;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATunnelGenerator::StaticClass(), TunnelGeneratorList);
+
+		if (TunnelGeneratorList.Num() > 0)
+		{
+			auto TunnelGenerator = Cast<ATunnelGenerator>(TunnelGeneratorList[0]);
+			TunnelGenerator->CreateUnit();
+		}
+
 		for (auto &itm : ListOfCreatedActors)
 		{
 			itm->SetLifeSpan(0.5);

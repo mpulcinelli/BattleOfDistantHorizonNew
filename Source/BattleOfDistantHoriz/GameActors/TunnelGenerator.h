@@ -26,10 +26,15 @@ public:
 	UFUNCTION()
 	void CreateUnit();
 
+	UFUNCTION()
+	void NewUnit();
+
+
 private:
 	FTimerHandle CreateUnitTimerHandle;
 	FVector LocationToSpawn;
 	FRotator RotationToSpawn;
 	class ATunnelUnit* LastTunnelCreated = nullptr;
-	
+	TArray<ATunnelUnit *> GeneratedTunnelList;
+	bool CanGenerateNewUnit();
 };

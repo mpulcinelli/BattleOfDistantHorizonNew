@@ -13,7 +13,6 @@
 #include "Engine/StaticMesh.h"
 #include "SpaceShipProjectile.h"
 #include <cstdlib>
-#include "Kismet/GameplayStatics.h"
 #include "BattleOfDistantHoriz/Helpers/UserWidgetHelper.h"
 #include "BattleOfDistantHoriz/GameActors/TunnelUnit.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -289,7 +288,7 @@ void ASpaceShipPawn::NotifyHit(class UPrimitiveComponent *MyComp, class AActor *
 
 	if (Other->GetClass() == ATunnelUnit::StaticClass())
 	{
-		AmountLife -= 1;
+		DecrementLife(1);
 	}
 
 	if (AmountLife >= 0.0)
@@ -472,6 +471,11 @@ void ASpaceShipPawn::HideShipMesh()
 	}
 
 	Destroy();
+}
+
+void ASpaceShipPawn::DecrementLife(float Value)
+{
+	AmountLife -= Value;
 }
 
 void ASpaceShipPawn::DecrementFuel() 

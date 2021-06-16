@@ -2,6 +2,7 @@
 
 #include "TunnelGenerator.h"
 #include "TunnelUnit.h"
+#include "Kismet/GameplayStatics.h"
 #include "Components/ArrowComponent.h"
 
 // Sets default values
@@ -17,7 +18,7 @@ void ATunnelGenerator::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorld()->GetTimerManager().SetTimer(CreateUnitTimerHandle, this, &ATunnelGenerator::CreateUnit, 1.0f, true, 0);
+	GetWorld()->GetTimerManager().SetTimer(CreateUnitTimerHandle, this, &ATunnelGenerator::CreateUnit, 20.0f, true, 0);
 }
 
 void ATunnelGenerator::Tick(float DeltaTime)
@@ -26,6 +27,17 @@ void ATunnelGenerator::Tick(float DeltaTime)
 }
 
 void ATunnelGenerator::CreateUnit()
+{
+	if (!CanGenerateNewUnit())
+		return;
+
+	for (short int i = 0; i < 2; i++)
+	{
+		NewUnit();
+	}
+}
+
+void ATunnelGenerator::NewUnit()
 {
 	FActorSpawnParameters SpawnInfo;
 	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -42,4 +54,13 @@ void ATunnelGenerator::CreateUnit()
 		UE_LOG(LogTemp, Warning, TEXT("POSICAO PARA O PROXIMO BLOCO %f"), LocationToSpawn.X);
 		LastTunnelCreated = GetWorld()->SpawnActor<ATunnelUnit>(LocationToSpawn, RotationToSpawn, SpawnInfo);
 	}
+
+	GeneratedTunnelList.Add(LastTunnelCreated);
+}
+
+bool ATunnelGenerator::CanGenerateNewUnit()
+{
+	TArray<AActor *> TunnelGeneratorList;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATunnelUnit::StaticClass(), TunnelGeneratorList);
+	return TunnelGeneratorList.Num() <= 20;
 }

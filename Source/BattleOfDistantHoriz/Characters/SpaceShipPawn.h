@@ -229,7 +229,7 @@ public:
 	UFUNCTION()
 	void AddFuel(float fuel);
 
-
+	void DecrementLife(float Value);
 
 	// /** Returns PlaneMesh subobject **/
 	// FORCEINLINE class UStaticMeshComponent* GetPlaneMesh() const { return PlaneMesh; }
