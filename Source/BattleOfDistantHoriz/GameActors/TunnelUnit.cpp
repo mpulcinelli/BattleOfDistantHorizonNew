@@ -15,6 +15,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "BattleOfDistantHoriz/GameActors/TunnelGenerator.h"
 #include "BattleOfDistantHoriz/Obstacles/LaserWallObstacle.h"
+#include "BattleOfDistantHoriz/Enemies/TurretEnemyAI.h"
+
 // Sets default values
 ATunnelUnit::ATunnelUnit()
 {
@@ -26,6 +28,7 @@ ATunnelUnit::ATunnelUnit()
 	EndTrigger = CreateDefaultSubobject<UBoxComponent>(TEXT("EndTrigger"));
 	AreaToSpawn = CreateDefaultSubobject<UBoxComponent>(TEXT("AreaToSpawn"));
 	AreaToSpawnFuelPickUp = CreateDefaultSubobject<UBoxComponent>(TEXT("AreaToSpawnFuelPickUp"));
+	AreaToSpawnTurret = CreateDefaultSubobject<UBoxComponent>(TEXT("AreaToSpawnTurret"));
 	PoitLight01 = CreateDefaultSubobject<UPointLightComponent>(TEXT("PoitLight01"));
 	PoitLight02 = CreateDefaultSubobject<UPointLightComponent>(TEXT("PoitLight02"));
 	PoitLight03 = CreateDefaultSubobject<UPointLightComponent>(TEXT("PoitLight03"));
@@ -42,6 +45,7 @@ ATunnelUnit::ATunnelUnit()
 	EndTrigger->SetupAttachment(RootComp);
 	AreaToSpawn->SetupAttachment(RootComp);
 	AreaToSpawnFuelPickUp->SetupAttachment(RootComp);
+	AreaToSpawnTurret->SetupAttachment(RootComp);
 
 	TunnelUnitMesh->SetCollisionProfileName(FName("BlockAll"));
 
@@ -109,10 +113,15 @@ ATunnelUnit::ATunnelUnit()
 	AreaToSpawn->SetGenerateOverlapEvents(true);
 	AreaToSpawn->SetCollisionProfileName(FName("BoxSpawnProfile"));
 
-	AreaToSpawnFuelPickUp->SetRelativeLocation(FVector(0.000000, 0.000000, -2247.000000));
-	AreaToSpawnFuelPickUp->SetRelativeScale3D(FVector(61.250000, 61.250000, 1.000000));
+	AreaToSpawnFuelPickUp->SetRelativeLocation(FVector(0.000000, 0.000000, 0.000000));
+	AreaToSpawnFuelPickUp->SetRelativeScale3D(FVector(70.0, 45.0, 50.0));
 	AreaToSpawnFuelPickUp->SetGenerateOverlapEvents(false);
 	AreaToSpawnFuelPickUp->SetCollisionProfileName(FName("BoxSpawnFuelProfile"));
+
+	AreaToSpawnTurret->SetRelativeLocation(FVector(1270.000000,0.000000,-2240.000000));
+	AreaToSpawnTurret->SetRelativeScale3D(FVector(30.0, 45.0, 1.0));
+	AreaToSpawnTurret->SetGenerateOverlapEvents(false);
+	AreaToSpawnTurret->SetCollisionProfileName(FName("BoxSpawnFuelProfile"));
 
 	ArrowPositionNextBlock->SetRelativeLocation(FVector(2400.000000, 0.000000, -2400.000000));
 	ArrowPositionNextBlock->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
@@ -143,9 +152,16 @@ void ATunnelUnit::BeginPlay()
 
 	// 10% de probabilidade de executar
 	if (FMath::RandRange(1, 10) == 5)
+	{
 		AddPickUpFuel();
+	}
 
-	AddLaserWall();
+	if (FMath::RandRange(1, FMath::RandRange(5, 15)) == 10)
+	{
+		AddLaserWall();
+	}
+
+	AddEnemyTurret();
 }
 
 void ATunnelUnit::BeginDestroy()
@@ -171,6 +187,27 @@ void ATunnelUnit::AddPickUpFuel()
 		fuel->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
 	}
 }
+
+void ATunnelUnit::AddEnemyTurret()
+{
+	FVector RandPointToTurret;
+	FActorSpawnParameters SpawnInfo;
+	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	FRotator RotationToSpawn = FRotator(0.0f);
+
+	GetRandomPointIn3DBoxSpace(RandPointToTurret, AreaToSpawnTurret);
+
+	auto turret = GetWorld()->SpawnActor<ATurretEnemyAI>(RandPointToTurret, RotationToSpawn, SpawnInfo);
+
+	if (turret != nullptr)
+	{
+		ListOfCreatedActors.Add(turret);
+		UE_LOG(LogTemp, Warning, TEXT("AddEnemyTurret"));
+
+		turret->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+	}
+}
+
 
 void ATunnelUnit::AddPickUpStar()
 {
@@ -200,8 +237,8 @@ void ATunnelUnit::AddLaserWall()
 	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	FRotator RotationToSpawn = FRotator(0.0f);
 
-	PointToSpawn.X =  AreaToSpawnFuelPickUp->GetComponentLocation().X;
-	PointToSpawn.Y =  AreaToSpawnFuelPickUp->GetComponentLocation().Y;
+	PointToSpawn.X = AreaToSpawnFuelPickUp->GetComponentLocation().X;
+	PointToSpawn.Y = AreaToSpawnFuelPickUp->GetComponentLocation().Y;
 
 	UE_LOG(LogTemp, Warning, TEXT("AddLaserWall:: %s"), *AreaToSpawnFuelPickUp->GetComponentLocation().ToString());
 

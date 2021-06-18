@@ -29,6 +29,10 @@ public:
 	class UBoxComponent *AreaToSpawnFuelPickUp;
 
 	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UBoxComponent *AreaToSpawnTurret;
+
+
+	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UPointLightComponent *PoitLight01;
 	
 	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
@@ -55,6 +59,7 @@ protected:
 	void AddPickUpFuel();
 	void AddPickUpStar();
 	void AddLaserWall();
+	void AddEnemyTurret();
 
 	void GetRandomPointIn3DBoxSpace(FVector &RandomPoint, class UBoxComponent* BoundingBox);
 	

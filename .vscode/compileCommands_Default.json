@@ -193,5 +193,15 @@
 		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/LaserWallObstacle.cpp",
 		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_Default/BattleOfDistantHoriz.149.rsp\"",
 		"directory": "/opt/UnrealEngine/Engine/Source"
+	},
+	{
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Enemies/TurretEnemyAI.h",
+		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_Default/BattleOfDistantHoriz.149.rsp\"",
+		"directory": "/opt/UnrealEngine/Engine/Source"
+	},
+	{
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Enemies/TurretEnemyAI.cpp",
+		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_Default/BattleOfDistantHoriz.149.rsp\"",
+		"directory": "/opt/UnrealEngine/Engine/Source"
 	}	
 ]

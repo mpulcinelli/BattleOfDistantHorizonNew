@@ -62,7 +62,7 @@ ASpaceShipPawn::ASpaceShipPawn()
 	PoitLightTop->SetAttenuationRadius(16384.00);
 	PoitLightTop->SetSourceRadius(17059.00);
 	PoitLightTop->SetSourceLength(50);
-	PoitLightTop->SetRelativeLocation(FVector(-894.000000,0.000000,725.000000));
+	PoitLightTop->SetRelativeLocation(FVector(-894.000000, 0.000000, 725.000000));
 	PoitLightTop->SetupAttachment(SpaceShip_Mesh);
 
 	Hardpoint1_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint1_Mesh"));
@@ -241,11 +241,11 @@ void ASpaceShipPawn::ShowShield()
 	}
 }
 
-void ASpaceShipPawn::AddFuel(float fuel) 
+void ASpaceShipPawn::AddFuel(float fuel)
 {
 	AmountFuel += fuel;
-	
-	if(AmountFuel>100.0)
+
+	if (AmountFuel > 100.0)
 		AmountFuel = 100.f;
 }
 // Called every frame
@@ -280,10 +280,9 @@ void ASpaceShipPawn::NotifyHit(class UPrimitiveComponent *MyComp, class AActor *
 
 	SetActorRotation(FQuat::Slerp(CurrentRotation.Quaternion(), HitNormal.ToOrientationQuat(), 0.025f));
 
-	auto W = GetWorld();
-	if (W)
+	if (UWorld *world = GetWorld())
 	{
-		UGameplayStatics::SpawnEmitterAtLocation(W, CollisionExplodeParticle, HitLocation, Hit.Normal.Rotation());
+		UGameplayStatics::SpawnEmitterAtLocation(world, CollisionExplodeParticle, HitLocation, Hit.Normal.Rotation());
 	}
 
 	if (Other->GetClass() == ATunnelUnit::StaticClass())
@@ -478,9 +477,10 @@ void ASpaceShipPawn::DecrementLife(float Value)
 	AmountLife -= Value;
 }
 
-void ASpaceShipPawn::DecrementFuel() 
+void ASpaceShipPawn::DecrementFuel()
 {
-	if (bIsDead) return;
+	if (bIsDead)
+		return;
 
 	float FuelExpense = (CurrentForwardSpeed / MaxSpeed) * 10.0f;
 
@@ -489,7 +489,8 @@ void ASpaceShipPawn::DecrementFuel()
 	if (AmountFuel >= 0.0)
 		OnPlayerDecrementFuel.Broadcast(AmountFuel);
 
-	if(AmountFuel<0.0f){
+	if (AmountFuel < 0.0f)
+	{
 		bIsDead = true;
 		AmountFuel = 0.0f;
 		ExplodeShip();
