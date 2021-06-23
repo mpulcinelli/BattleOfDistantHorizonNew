@@ -6,6 +6,7 @@
 #include "Particles/ParticleSystem.h"
 #include "Components/BoxComponent.h"
 #include "BattleOfDistantHoriz/Characters/SpaceShipPawn.h"
+#include "BattleOfDistantHoriz/Characters/SpaceShipProjectile.h"
 
 ALaserWallObstacle::ALaserWallObstacle()
 {
@@ -213,17 +214,18 @@ void ALaserWallObstacle::BeginPlay()
 void ALaserWallObstacle::OnHitLaser(UPrimitiveComponent *HitComp, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit)
 {
     auto isPlayer = Cast<ASpaceShipPawn>(OtherActor);
+    auto isProjectile = Cast<ASpaceShipProjectile>(OtherActor);
 
-    if (isPlayer)
+    if (isPlayer || isProjectile)
     {
-        
+
         FString particle = HitComp->GetName();
 
         particle.RemoveAt(0, 6);
         particle.RemoveAt(2, 10);
-        
+
         int32 selectedParticle = FCString::Atoi(*particle);
-        
+
         switch (selectedParticle)
         {
         case 1:
@@ -252,7 +254,10 @@ void ALaserWallObstacle::OnHitLaser(UPrimitiveComponent *HitComp, AActor *OtherA
         }
 
         HitComp->DestroyComponent();
-
-        isPlayer->DecrementLife(5.0f);
+        
+        if (isPlayer)
+        {
+            isPlayer->DecrementLife(5.0f);
+        }
     }
 }
