@@ -8,7 +8,7 @@
 #include "Components/BoxComponent.h"
 #include "BattleOfDistantHoriz/Characters/SpaceShipPawn.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "BattleOfDistantHoriz/Pickups/StarPickUp.h"
+#include "BattleOfDistantHoriz/Obstacles/StarObstacle.h"
 #include "BattleOfDistantHoriz/Pickups/FuelPickUp.h"
 #include "Components/PointLightComponent.h"
 #include "Components/ArrowComponent.h"
@@ -220,7 +220,7 @@ void ATunnelUnit::AddPickUpStar()
 
 	FRotator RotationToSpawn;
 
-	auto start = GetWorld()->SpawnActor<AStarPickUp>(RandPoint, RotationToSpawn, SpawnInfo);
+	auto start = GetWorld()->SpawnActor<AStarObstacle>(RandPoint, RotationToSpawn, SpawnInfo);
 
 	if (start != nullptr)
 	{

@@ -135,12 +135,12 @@
 		"directory": "/opt/UnrealEngine/Engine/Source"
 	},
 	{
-		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Pickups/StarPickUp.cpp",
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/StarObstacle.cpp",
 		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
 		"directory": "/opt/UnrealEngine/Engine/Source"
 	},
 	{
-		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Pickups/StarPickUp.h",
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/StarObstacle.h",
 		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
 		"directory": "/opt/UnrealEngine/Engine/Source"
 	},

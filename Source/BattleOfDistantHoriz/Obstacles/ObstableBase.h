@@ -10,8 +10,8 @@ UCLASS()
 class BATTLEOFDISTANTHORIZ_API AObstableBase : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AObstableBase();
 
@@ -19,10 +19,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+	class UStaticMeshComponent *PickUpMesh;
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
-	
+
+
 };

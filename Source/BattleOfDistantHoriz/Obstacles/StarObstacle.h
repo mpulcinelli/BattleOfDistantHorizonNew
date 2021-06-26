@@ -3,21 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PickUpBase.h"
-#include "StarPickUp.generated.h"
+#include "ObstableBase.h"
+
+#include "StarObstacle.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
-class BATTLEOFDISTANTHORIZ_API AStarPickUp : public APickUpBase
+class BATTLEOFDISTANTHORIZ_API AStarObstacle : public AObstableBase
 {
 	GENERATED_BODY()
 
 public:
 
-	AStarPickUp(const FObjectInitializer &ObjectInitializer);
-	
+	AStarObstacle();
+
 	UPROPERTY(Category = ParticleSystem, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UParticleSystemComponent *PlasmaParticle;
 

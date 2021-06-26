@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "StarPickUp.h"
+#include "StarObstacle.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Particles/ParticleSystem.h"
 #include "BattleOfDistantHoriz/Characters/SpaceShipPawn.h"
 
-AStarPickUp::AStarPickUp(const FObjectInitializer &ObjectInitializer) : Super(ObjectInitializer)
+AStarObstacle::AStarObstacle()
 {
     static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PLASMA(TEXT("/Game/FXVarietyPack/Particles/P_ky_waterBall"));
     static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PLASMA_EXPLODE(TEXT("/Game/FXVarietyPack/Particles/P_ky_waterBallHit"));
-    
+
     PlasmaParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("PlasmaParticle"));
     PlasmaExplodeParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("PlasmaExplodeParticle"));
 
@@ -25,7 +25,7 @@ AStarPickUp::AStarPickUp(const FObjectInitializer &ObjectInitializer) : Super(Ob
 
     PickUpMesh->SetRelativeScale3D(FVector(2.000000, 2.000000, 2.000000));
     PickUpMesh->SetCollisionProfileName(FName("OverlapAll"));
-    
+
     if (PS_PLASMA.Object != nullptr)
     {
         PlasmaParticle->SetTemplate(PS_PLASMA.Object);
@@ -34,18 +34,17 @@ AStarPickUp::AStarPickUp(const FObjectInitializer &ObjectInitializer) : Super(Ob
     {
         PlasmaExplodeParticle->SetTemplate(PS_PLASMA_EXPLODE.Object);
     }
-
 }
 
 
-void AStarPickUp::BeginPlay()
+void AStarObstacle::BeginPlay()
 {
     Super::BeginPlay();
 
-    PickUpMesh->OnComponentBeginOverlap.AddDynamic(this, &AStarPickUp::PickUpMeshBeginOverlap);
+    PickUpMesh->OnComponentBeginOverlap.AddDynamic(this, &AStarObstacle::PickUpMeshBeginOverlap);
 }
 
-void AStarPickUp::PickUpMeshBeginOverlap(class UPrimitiveComponent *OverlappedComp, class AActor *Other, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult) 
+void AStarObstacle::PickUpMeshBeginOverlap(class UPrimitiveComponent *OverlappedComp, class AActor *Other, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
     auto isPlayer = Cast<ASpaceShipPawn>(Other);
 
