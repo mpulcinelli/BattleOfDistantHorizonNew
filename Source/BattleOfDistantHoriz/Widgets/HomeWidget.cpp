@@ -7,6 +7,7 @@
 #include "Components/EditableTextBox.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
+#include "BattleOfDistantHoriz/GameInstances/BattleOfDistantHorizGameInstance.h"
 
 UHomeWidget::UHomeWidget(const FObjectInitializer &ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -25,13 +26,17 @@ void UHomeWidget::NativeConstruct()
     {
         BtnSair->OnClicked.AddDynamic(this, &UHomeWidget::OnBtnSair);
     }
-    
+
     this->bIsFocusable = true;
 }
 
 void UHomeWidget::OnBtnJogar()
 {
-    UGameplayStatics::OpenLevel(GetWorld(), FName("/Game/Maps/GameMap"));
+
+    auto GI = Cast<UBattleOfDistantHorizGameInstance>(GetGameInstance());
+    if(GI!=nullptr){
+        GI->OpenLevel();
+    }
 }
 
 void UHomeWidget::OnBtnSair()

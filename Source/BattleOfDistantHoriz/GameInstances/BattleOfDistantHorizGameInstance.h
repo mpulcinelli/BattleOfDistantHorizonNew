@@ -7,7 +7,7 @@
 #include "BattleOfDistantHorizGameInstance.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class BATTLEOFDISTANTHORIZ_API UBattleOfDistantHorizGameInstance : public UGameInstance
@@ -18,9 +18,11 @@ public:
 
 	void OpenLevel();
 	void ReloadGame();
-	
+
 private:
 	FTimerHandle ReloadLevel;
-	
-
+	FTimerHandle CountDown;
+	int count_down=3;
+private:
+	void ExecuteCountDown();
 };

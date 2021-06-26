@@ -6,8 +6,11 @@
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
+
 #include "BattleOfDistantHoriz/Widgets/HomeWidget.h"
 #include "BattleOfDistantHoriz/Widgets/HUDWidget.h"
+#include "BattleOfDistantHoriz/Widgets/CountDownWidget.h"
+
 #include "Blueprint/WidgetBlueprintLibrary.h"
 
 void UUserWidgetHelper::ShowEntrada()
@@ -84,6 +87,42 @@ void UUserWidgetHelper::HidePlayerHud()
         item->RemoveFromViewport();
 }
 
+void UUserWidgetHelper::ShowCountDown()
+{
+    FSoftClassPath WBP_COUNT_DOWN(TEXT("WidgetBlueprint'/Game/UI/WBP_COUNT_DOWN.WBP_COUNT_DOWN_C'"));
+
+    UClass *WbpCountDownClass = WBP_COUNT_DOWN.TryLoadClass<UUserWidget>();
+    if (!ensureAlwaysMsgf(WbpCountDownClass, TEXT("Problema com TryLoadClass<UCountDownWidget>() em %s"), *FString(__func__)))
+        return;
+
+    UWorld *W = GetWorld();
+    if (!ensureAlwaysMsgf(W, TEXT("Problema com GetWorld() em %s"), *FString(__func__)))
+        return;
+
+    APlayerController *PC = W->GetFirstPlayerController();
+    if (!ensureAlwaysMsgf(PC, TEXT("Problema com GetFirstPlayerController() em %s"), *FString(__func__)))
+        return;
+
+    UUserWidget *CountDownWidget = CreateWidget<UUserWidget>(PC, WbpCountDownClass);
+    if (!ensureAlwaysMsgf(CountDownWidget, TEXT("Problema com CreateWidget() em %s"), *FString(__func__)))
+        return;
+
+    CountDownWidget->AddToViewport();
+    PC->bShowMouseCursor = false;
+
+    UWidgetBlueprintLibrary::SetInputMode_GameOnly(PC);
+}
+
+void UUserWidgetHelper::HideCountDown()
+{
+    TArray<UUserWidget *> FoundWidgets;
+
+    UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), FoundWidgets, UCountDownWidget::StaticClass());
+
+    for (auto &&item : FoundWidgets)
+        item->RemoveFromViewport();
+}
+
 void UUserWidgetHelper::SetEntradaWidget(EDisplayWidget DisplayOption)
 {
     if (DisplayOption == EDisplayWidget::HideWidget)
@@ -100,11 +139,33 @@ void UUserWidgetHelper::SetPlayerHudWidget(EDisplayWidget DisplayOption)
         ShowPlayerHud();
 }
 
+void UUserWidgetHelper::SetCountDownWidget(EDisplayWidget DisplayOption)
+{
+    if (DisplayOption == EDisplayWidget::HideWidget)
+        HideCountDown();
+    else
+        ShowCountDown();
+}
+
 UUserWidget *UUserWidgetHelper::GetPlayerHudWidget()
 {
     TArray<UUserWidget *> FoundWidgets;
 
     UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), FoundWidgets, UHUDWidget::StaticClass());
+
+    for (auto &&item : FoundWidgets)
+    {
+        return item;
+    }
+
+    return nullptr;
+}
+
+UUserWidget* UUserWidgetHelper::GetCountDownWidget()
+{
+    TArray<UUserWidget *> FoundWidgets;
+
+    UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), FoundWidgets, UCountDownWidget::StaticClass());
 
     for (auto &&item : FoundWidgets)
     {

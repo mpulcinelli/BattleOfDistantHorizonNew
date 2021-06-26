@@ -265,6 +265,9 @@ void ASpaceShipPawn::Tick(float DeltaSeconds)
 	// Rotate plane
 	AddActorLocalRotation(DeltaRotation, true);
 
+	// FVector MyPosition = GetActorLocation();
+	// GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %f, y: %f, z: %f"), MyPosition.X, MyPosition.Y, MyPosition.Z));
+
 	// Call any parent class Tick implementation
 	Super::Tick(DeltaSeconds);
 }
@@ -375,8 +378,6 @@ void ASpaceShipPawn::FireSelection(int FireType, FVector Loc, FRotator Rot)
 {
 	FActorSpawnParameters SpawnInfo;
 
-	SpawnInfo.Owner = this;
-	SpawnInfo.Instigator = GetInstigator();
 	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 	auto W = GetWorld();
@@ -385,7 +386,10 @@ void ASpaceShipPawn::FireSelection(int FireType, FVector Loc, FRotator Rot)
 		auto projectile = GetWorld()->SpawnActor<ASpaceShipProjectile>(Loc, Rot, SpawnInfo);
 		if (projectile)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("FireSelection"));
 			projectile->ExecuteFire(FireType);
+		}else{
+			UE_LOG(LogTemp, Warning, TEXT("INVALIDO PROJECTILE"));
 		}
 	}
 	else
@@ -463,6 +467,7 @@ void ASpaceShipPawn::Fire06()
 void ASpaceShipPawn::HideShipMesh()
 {
 	SpaceShip_Mesh->SetVisibility(false, true);
+	
 	auto GI = Cast<UBattleOfDistantHorizGameInstance>(GetGameInstance());
 	if (GI)
 	{

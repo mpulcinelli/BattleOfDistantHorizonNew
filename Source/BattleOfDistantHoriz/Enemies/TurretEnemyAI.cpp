@@ -22,7 +22,10 @@ ATurretEnemyAI::ATurretEnemyAI()
 	AISensing->SensingInterval = 0.5f;
 	AISensing->SetPeripheralVisionAngle(55.0f);
 
+	AISensing->OnSeePawn.AddDynamic(this, &ATurretEnemyAI::OnSeePawnByAi);
+
 	if(SK_TURRET.Object!=nullptr){
+		
 		GetMesh()->SetSkeletalMesh(SK_TURRET.Object);
 	}
 }
@@ -32,7 +35,7 @@ void ATurretEnemyAI::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AISensing->OnSeePawn.AddDynamic(this, &ATurretEnemyAI::OnSeePawnByAi);
+
 }
 
 void ATurretEnemyAI::OnSeePawnByAi(APawn* Pawn)

@@ -17,7 +17,7 @@ enum class EDisplayWidget : uint8
 
 
 /**
- * 
+ *
  */
 UCLASS()
 class BATTLEOFDISTANTHORIZ_API UUserWidgetHelper : public UObject
@@ -25,7 +25,7 @@ class BATTLEOFDISTANTHORIZ_API UUserWidgetHelper : public UObject
 	GENERATED_BODY()
 
 public:
-	
+
 	UFUNCTION()
 	void SetEntradaWidget(EDisplayWidget DisplayOption);
 
@@ -33,7 +33,15 @@ public:
 	void SetPlayerHudWidget(EDisplayWidget DisplayOption);
 
 	UFUNCTION()
-	UUserWidget* GetPlayerHudWidget();
+	void SetCountDownWidget(EDisplayWidget DisplayOption);
+
+
+	UFUNCTION()
+	class UUserWidget* GetPlayerHudWidget();
+
+	UFUNCTION()
+	class UUserWidget* GetCountDownWidget();
+
 
 private:
 
@@ -45,11 +53,18 @@ private:
 
 	UFUNCTION()
 	void HideEntrada();
-	
+
 	UFUNCTION()
 	void ShowPlayerHud();
 
 	UFUNCTION()
 	void HidePlayerHud();
+
+	UFUNCTION()
+	void ShowCountDown();
+
+	UFUNCTION()
+	void HideCountDown();
+
 
 };

@@ -142,7 +142,7 @@ void ATunnelUnit::BeginPlay()
 	// 20% de probabilidade de executar
 	if (FMath::RandRange(1, 5) == 3)
 	{
-		short int qtd_estrelas = FMath::RandRange(0, 8);
+		short int qtd_estrelas = FMath::RandRange(0, 5);
 
 		for (short int i = 0; i < qtd_estrelas; i++)
 		{
@@ -161,7 +161,7 @@ void ATunnelUnit::BeginPlay()
 		AddLaserWall();
 	}
 
-	AddEnemyTurret();
+	//AddEnemyTurret();
 }
 
 void ATunnelUnit::BeginDestroy()

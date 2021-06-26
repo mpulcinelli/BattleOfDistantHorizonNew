@@ -41,14 +41,13 @@ ASpaceShipProjectile::ASpaceShipProjectile()
 
 	SphereCollider->SetSphereRadius(32.0f);
 
-	ProjectileMovimentComp->UpdatedComponent = RootComponent;
 	ProjectileMovimentComp->InitialSpeed = 5000.f;
 	ProjectileMovimentComp->MaxSpeed = 15000.f;
-	ProjectileMovimentComp->bRotationFollowsVelocity = true;
+	ProjectileMovimentComp->bRotationFollowsVelocity = false;
 	ProjectileMovimentComp->bShouldBounce = false;
 	ProjectileMovimentComp->ProjectileGravityScale = 0.0f;
 	ProjectileMovimentComp->SetAutoActivate(false);
-	ProjectileMovimentComp->SetVelocityInLocalSpace(FVector::ForwardVector * 500.0f);
+	ProjectileMovimentComp->SetVelocityInLocalSpace(FVector::ForwardVector * 1000.0f);
 
 	if (PS_PROJECTILE_01.Object != nullptr)
 	{
@@ -95,12 +94,12 @@ void ASpaceShipProjectile::BeginPlay()
 	Super::BeginPlay();
 }
 
-
 void ASpaceShipProjectile::SphereColliderBeginOverlap(class UPrimitiveComponent *OverlappedComp, class AActor *Other, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
+
 	if ((Other != nullptr) && (Other != this) && (OtherComp != nullptr) && (!Other->GetName().Contains("SpaceShipPawn")))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *Other->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("PROJECTILE BeginOverlap %s"), *Other->GetName());
 
 		if (OtherComp->IsSimulatingPhysics())
 		{
@@ -112,14 +111,14 @@ void ASpaceShipProjectile::SphereColliderBeginOverlap(class UPrimitiveComponent 
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(W, Particles[SelectedPosition + 1], SweepResult.Location, SweepResult.Normal.Rotation());
 		}
-		
+
 		SetLifeSpan(0.5);
 	}
 }
 
 void ASpaceShipProjectile::ExecuteFire(int Pos = 0)
 {
-	ProjectileParticle->SetTemplate(Particles[Pos]);
-	ProjectileMovimentComp->Activate(true);
 	SelectedPosition = Pos;
+	ProjectileParticle->SetTemplate(Particles[SelectedPosition]);
+	ProjectileMovimentComp->SetActive(true, true);
 }
