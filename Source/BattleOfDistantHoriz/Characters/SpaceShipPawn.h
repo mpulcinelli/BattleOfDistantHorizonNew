@@ -15,6 +15,7 @@ public:
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerDecrementLife, float, ponto);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerDecrementFuel, float, fuel);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerDecrementFuelBank, int, fuelBank);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPlayerDiedNow);
 
@@ -24,6 +25,10 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FPlayerDecrementFuel OnPlayerDecrementFuel;
+
+	UPROPERTY(BlueprintAssignable)
+	FPlayerDecrementFuelBank OnPlayerDecrementFuelBank;
+
 
 
 	UPROPERTY(BlueprintAssignable)
@@ -134,7 +139,7 @@ protected:
 
 	/** Bound to the thrust axis */
 	void ThrustInput(float Val);
-	
+
 	/** Bound to the vertical axis */
 	void MoveUpInput(float Val);
 
@@ -165,7 +170,7 @@ protected:
 
 	UFUNCTION()
 	void ExplodeShip();
-	
+
 	UFUNCTION()
 	void HideShipMesh();
 
@@ -221,8 +226,10 @@ private:
 	UFUNCTION()
 	void DecrementFuel();
 
-public:	
-	
+	TArray<float> FuelBanks;
+
+public:
+
 	UFUNCTION()
 	void ShowShield();
 
@@ -237,5 +244,5 @@ public:
 	FORCEINLINE class USpringArmComponent* GetSpringArm() const { return SpringArm; }
 	/** Returns Camera subobject **/
 	FORCEINLINE class UCameraComponent* GetCamera() const { return Camera; }
-	
+
 };

@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BattleOfDistantHoriz/Obstacles/ObstableBase.h"
+#include "BattleOfDistantHoriz/Obstacles/ObstacleBase.h"
 #include "LaserWallObstacle.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
-class BATTLEOFDISTANTHORIZ_API ALaserWallObstacle : public AObstableBase
+class BATTLEOFDISTANTHORIZ_API ALaserWallObstacle : public AObstacleBase
 {
 	GENERATED_BODY()
 
@@ -57,7 +57,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+
 	UFUNCTION()
 	void OnHitLaser(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 };

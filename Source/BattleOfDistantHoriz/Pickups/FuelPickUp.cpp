@@ -15,7 +15,7 @@ AFuelPickUp::AFuelPickUp(const FObjectInitializer &ObjectInitializer) : Super(Ob
     static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_LIGHTNING(TEXT("/Game/FXVarietyPack/Particles/P_ky_lightning2"));
     //static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_FUEL_CONSUMED(TEXT("/Game/FXVarietyPack/Particles/P_ky_hit2"));
     static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_FUEL_CONSUMED(TEXT("/Game/FXVarietyPack/Particles/P_ky_shotShockwave"));
-    
+
     TopLigh = CreateDefaultSubobject<URectLightComponent>(TEXT("TopLigh"));
     BoltParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoltParticle"));
     FuelTankRotation = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("FuelTankRotation"));
@@ -76,23 +76,22 @@ void AFuelPickUp::PickUpMeshBeginOverlap(class UPrimitiveComponent *OverlappedCo
     if (bUsedCharge)
         return;
 
-    auto isPlayer = Cast<ASpaceShipPawn>(Other);
-    if (isPlayer != nullptr)
+    if (auto isPlayer = Cast<ASpaceShipPawn>(Other))
     {
-        PickUpMesh->SetVisibility(false);
         bUsedCharge = true;
+        PickUpMesh->SetVisibility(false);
         isPlayer->AddFuel(QuantidadeCarga);
         FuelConsumedParticle->Activate();
-        SetLifeSpan(0.5f);
+        SetLifeSpan(0.1f);
     }
 }
 
-void AFuelPickUp::BoltParticleFinished(class UParticleSystemComponent* PSystem) 
+void AFuelPickUp::BoltParticleFinished(class UParticleSystemComponent* PSystem)
 {
     UE_LOG(LogTemp, Warning, TEXT("BoltParticleFinished"));
 }
 
-void AFuelPickUp::TriggerBoltParticle() 
+void AFuelPickUp::TriggerBoltParticle()
 {
     BoltParticle->Deactivate();
     BoltParticle->Activate();

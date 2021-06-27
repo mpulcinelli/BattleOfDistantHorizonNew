@@ -7,7 +7,7 @@
 #include "HUDWidget.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class BATTLEOFDISTANTHORIZ_API UHUDWidget : public UUserWidget
@@ -17,13 +17,16 @@ class BATTLEOFDISTANTHORIZ_API UHUDWidget : public UUserWidget
 protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UImage *ImgCrossHair = nullptr;
-	
+
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UProgressBar *PBarLife = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UProgressBar *PBarFuel = nullptr;
-	
+
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	class UTextBlock *TxtNumFuelBanks = nullptr;
+
 
 public:
 	virtual void NativeTick(const FGeometry &MyGeometry, float InDeltaTime) override;
@@ -35,5 +38,9 @@ private:
 
 	UFUNCTION()
 	void UpdateValorCombustivel(float valor);
+
+	UFUNCTION()
+	void UpdateValorBancoCombustivel(int valor);
+
 
 };

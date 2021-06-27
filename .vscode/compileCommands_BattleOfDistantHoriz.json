@@ -175,12 +175,12 @@
 		"directory": "/opt/UnrealEngine/Engine/Source"
 	},
 	{
-		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/ObstableBase.h",
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/ObstacleBase.h",
 		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
 		"directory": "/opt/UnrealEngine/Engine/Source"
 	},
 	{
-		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/ObstableBase.cpp",
+		"file": "/home/mp/Documents/UEProjects/BattleOfDistantHorizon/Source/BattleOfDistantHoriz/Obstacles/ObstacleBase.cpp",
 		"command": "cl.exe @\"/home/mp/Documents/UEProjects/BattleOfDistantHorizon/.vscode/compileCommands_BattleOfDistantHoriz/BattleOfDistantHoriz.149.rsp\"",
 		"directory": "/opt/UnrealEngine/Engine/Source"
 	},

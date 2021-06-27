@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ObstableBase.h"
+#include "ObstacleBase.h"
 
 #include "StarObstacle.generated.h"
 
@@ -11,7 +11,7 @@
  *
  */
 UCLASS()
-class BATTLEOFDISTANTHORIZ_API AStarObstacle : public AObstableBase
+class BATTLEOFDISTANTHORIZ_API AStarObstacle : public AObstacleBase
 {
 	GENERATED_BODY()
 
@@ -32,6 +32,8 @@ protected:
 	UFUNCTION()
 	void PickUpMeshBeginOverlap(class UPrimitiveComponent *OverlappedComp, class AActor *Other, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
-
+private :
+	bool HitByPlayer = false;
+	float StarSizeHitPoints = 0;
 
 };

@@ -278,7 +278,8 @@ void ATunnelUnit::EndTriggerBeginOverlap(class UPrimitiveComponent *OverlappedCo
 
 		for (auto &itm : ListOfCreatedActors)
 		{
-			itm->SetLifeSpan(0.5);
+			if(itm)
+				itm->SetLifeSpan(0.5);
 		}
 
 		// Destroi o túnel.

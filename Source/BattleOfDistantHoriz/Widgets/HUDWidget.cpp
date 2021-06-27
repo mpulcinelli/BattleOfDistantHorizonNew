@@ -44,6 +44,7 @@ bool UHUDWidget::Initialize()
         {
             PN->OnPlayerDecrementLife.AddDynamic(this, &UHUDWidget::UpdateValorVida);
             PN->OnPlayerDecrementFuel.AddDynamic(this, &UHUDWidget::UpdateValorCombustivel);
+            PN->OnPlayerDecrementFuelBank.AddDynamic(this, &UHUDWidget::UpdateValorBancoCombustivel);
         }
     }
 
@@ -62,4 +63,9 @@ void UHUDWidget::UpdateValorCombustivel(float valor)
     float percent = valor / 100.0f;
     PBarFuel->SetPercent(percent);
     UE_LOG(LogTemp, Warning, TEXT("COMBUSTIVEL TELA: %f"), percent);
+}
+
+void UHUDWidget::UpdateValorBancoCombustivel(int valor)
+{
+    TxtNumFuelBanks->SetText(FText::FromString(FString::FromInt(valor)));
 }

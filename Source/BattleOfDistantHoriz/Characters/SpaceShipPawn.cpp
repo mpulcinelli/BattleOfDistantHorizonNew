@@ -224,6 +224,7 @@ ASpaceShipPawn::ASpaceShipPawn()
 	CurrentForwardSpeed = 500.f;
 	AmountLife = 100.0f;
 	AmountFuel = 100.0f;
+	// FuelBanks.Enqueue(AmountFuel);
 }
 
 void ASpaceShipPawn::ShowShield()
@@ -243,11 +244,10 @@ void ASpaceShipPawn::ShowShield()
 
 void ASpaceShipPawn::AddFuel(float fuel)
 {
-	AmountFuel += fuel;
-
-	if (AmountFuel > 100.0)
-		AmountFuel = 100.f;
+	FuelBanks.Push(fuel);
+	UE_LOG(LogTemp, Warning, TEXT("ASpaceShipPawn::AddFuel : %f"), fuel);
 }
+
 // Called every frame
 void ASpaceShipPawn::Tick(float DeltaSeconds)
 {
@@ -291,18 +291,6 @@ void ASpaceShipPawn::NotifyHit(class UPrimitiveComponent *MyComp, class AActor *
 	if (Other->GetClass() == ATunnelUnit::StaticClass())
 	{
 		DecrementLife(1);
-	}
-
-	if (AmountLife >= 0.0)
-		OnPlayerDecrementLife.Broadcast(AmountLife);
-
-	if (AmountLife < 0.0f)
-	{
-		bIsDead = true;
-		AmountLife = 0.0f;
-		ExplodeShip();
-		OnPlayerDiedNow.Broadcast();
-		OnPlayerDecrementLife.Broadcast(AmountLife);
 	}
 }
 
@@ -388,7 +376,9 @@ void ASpaceShipPawn::FireSelection(int FireType, FVector Loc, FRotator Rot)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("FireSelection"));
 			projectile->ExecuteFire(FireType);
-		}else{
+		}
+		else
+		{
 			UE_LOG(LogTemp, Warning, TEXT("INVALIDO PROJECTILE"));
 		}
 	}
@@ -467,7 +457,7 @@ void ASpaceShipPawn::Fire06()
 void ASpaceShipPawn::HideShipMesh()
 {
 	SpaceShip_Mesh->SetVisibility(false, true);
-	
+
 	auto GI = Cast<UBattleOfDistantHorizGameInstance>(GetGameInstance());
 	if (GI)
 	{
@@ -480,6 +470,18 @@ void ASpaceShipPawn::HideShipMesh()
 void ASpaceShipPawn::DecrementLife(float Value)
 {
 	AmountLife -= Value;
+
+	if (AmountLife >= 0.0)
+		OnPlayerDecrementLife.Broadcast(AmountLife);
+
+	if (AmountLife < 0.0f)
+	{
+		bIsDead = true;
+		AmountLife = 0.0f;
+		ExplodeShip();
+		OnPlayerDiedNow.Broadcast();
+		OnPlayerDecrementLife.Broadcast(AmountLife);
+	}
 }
 
 void ASpaceShipPawn::DecrementFuel()
@@ -491,16 +493,27 @@ void ASpaceShipPawn::DecrementFuel()
 
 	AmountFuel -= FuelExpense;
 
-	if (AmountFuel >= 0.0)
+	OnPlayerDecrementFuelBank.Broadcast(FuelBanks.Num());
+
+	if (AmountFuel > 0.0)
 		OnPlayerDecrementFuel.Broadcast(AmountFuel);
 
-	if (AmountFuel < 0.0f)
+	if (AmountFuel <= 0.0f)
 	{
-		bIsDead = true;
-		AmountFuel = 0.0f;
-		ExplodeShip();
-		OnPlayerDiedNow.Broadcast();
-		OnPlayerDecrementFuel.Broadcast(AmountFuel);
+		if (FuelBanks.Num()<=0)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("NO MORE BANKS"));
+			bIsDead = true;
+			AmountFuel = 0.0f;
+			ExplodeShip();
+			OnPlayerDiedNow.Broadcast();
+			OnPlayerDecrementFuel.Broadcast(AmountFuel);
+		}else{
+			UE_LOG(LogTemp, Warning, TEXT("USING EXISTANT BANK"));
+
+			AmountFuel = FuelBanks.Pop(true);
+			OnPlayerDecrementFuel.Broadcast(AmountFuel);
+		}
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("GASTO DE COMBUSTIVEL: %f"), FuelExpense);
