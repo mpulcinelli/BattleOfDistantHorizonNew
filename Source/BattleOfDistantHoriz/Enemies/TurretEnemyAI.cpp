@@ -1,32 +1,67 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "BattleOfDistantHoriz/Enemies/TurretEnemyAI.h"
-//#include "Perception/AIPerceptionComponent.h"
 #include "Perception/PawnSensingComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
 #include "Engine/SkeletalMesh.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "DrawDebugHelpers.h"
+#include "BattleOfDistantHoriz/Enemies/TurretEnemyProjectile.h"
 
 // Sets default values
 ATurretEnemyAI::ATurretEnemyAI()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+
+	// Structure to hold one-time initialization
+	struct FConstructorStatics
+	{
+		ConstructorHelpers::FObjectFinderOptional<USkeletalMesh> SKT_TURRET;
+		FConstructorStatics() : SKT_TURRET(TEXT("/Game/Inimigo/Meshes/treco.treco")) {}
+	};
+
+	static FConstructorStatics ConstructorStatics;
+
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	//
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_TURRET(TEXT("/Game/untitled_category/treco"));
+	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_TURRET(TEXT("/Game/Inimigo/Meshes/treco"));
 
-	//AIPerception = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerception"));
-	AISensing =  CreateDefaultSubobject<UPawnSensingComponent>(TEXT("AISensing"));
-	AISensing->HearingThreshold = 500.0f;
-	AISensing->LOSHearingThreshold = 1200.0f;
-	AISensing->SightRadius = 700.0f;
-	AISensing->SensingInterval = 0.5f;
-	AISensing->SetPeripheralVisionAngle(55.0f);
+	GetMesh()->SetSkeletalMesh(ConstructorStatics.SKT_TURRET.Get());
 
-	AISensing->OnSeePawn.AddDynamic(this, &ATurretEnemyAI::OnSeePawnByAi);
+	this->AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
-	if(SK_TURRET.Object!=nullptr){
-		
-		GetMesh()->SetSkeletalMesh(SK_TURRET.Object);
+
+	PawnSensing = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensing"));
+	PawnSensing->SetPeripheralVisionAngle(50.0f);
+	PawnSensing->SightRadius = 7520.0f;
+	PawnSensing->SetSensingUpdatesEnabled(true);
+	PawnSensing->bSeePawns = true;
+	PawnSensing->bOnlySensePlayers = true;
+}
+
+void ATurretEnemyAI::FireSelection(FVector Loc, FRotator Rot)
+{
+	FActorSpawnParameters SpawnInfo;
+
+	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	auto W = GetWorld();
+	if (W != nullptr)
+	{
+		auto projectile = GetWorld()->SpawnActor<ATurretEnemyProjectile>(Loc, Rot, SpawnInfo);
+		if (projectile)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("FireSelection"));
+			projectile->ExecuteFire();
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("INVALIDO PROJECTILE"));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("INVALIDO WORLD"));
 	}
 }
 
@@ -34,18 +69,22 @@ ATurretEnemyAI::ATurretEnemyAI()
 void ATurretEnemyAI::BeginPlay()
 {
 	Super::BeginPlay();
-
-
+	PawnSensing->OnSeePawn.AddDynamic(this, &ATurretEnemyAI::OnSeePawnByAi);
 }
 
-void ATurretEnemyAI::OnSeePawnByAi(APawn* Pawn)
+void ATurretEnemyAI::OnSeePawnByAi(APawn *SeenPawn)
 {
-	UE_LOG(LogTemp, Warning, TEXT("POSICAO DO PLAYER: %s"), *Pawn->GetActorLocation().ToString());
+	DrawDebugLine(GetWorld(), this->GetActorLocation(), SeenPawn->GetActorLocation(), FColor::Red, false, 10.0f);
+	auto TargetRot = UKismetMathLibrary::FindLookAtRotation(this->GetActorLocation(), SeenPawn->GetActorLocation());
+	FireSelection(this->GetActorLocation(), TargetRot);
 }
 
-// Called every frame
-void ATurretEnemyAI::Tick(float DeltaTime)
+void ATurretEnemyAI::Tick(float DeltaSeconds)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaSeconds);
+}
 
+void ATurretEnemyAI::SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }

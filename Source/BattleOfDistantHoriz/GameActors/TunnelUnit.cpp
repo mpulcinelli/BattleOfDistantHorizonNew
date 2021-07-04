@@ -161,7 +161,7 @@ void ATunnelUnit::BeginPlay()
 		AddLaserWall();
 	}
 
-	//AddEnemyTurret();
+	AddEnemyTurret();
 }
 
 void ATunnelUnit::BeginDestroy()
@@ -191,9 +191,13 @@ void ATunnelUnit::AddPickUpFuel()
 void ATunnelUnit::AddEnemyTurret()
 {
 	FVector RandPointToTurret;
+
 	FActorSpawnParameters SpawnInfo;
+
 	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	FRotator RotationToSpawn = FRotator(0.0f);
+
+//	FRotator RotationToSpawn = FRotator(0.0f);
+	FRotator RotationToSpawn = FRotator(0.0, -180.0, 0.0);
 
 	GetRandomPointIn3DBoxSpace(RandPointToTurret, AreaToSpawnTurret);
 
