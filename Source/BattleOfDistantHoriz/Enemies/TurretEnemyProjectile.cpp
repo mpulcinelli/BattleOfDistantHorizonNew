@@ -9,6 +9,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystem.h"
 #include "UObject/ConstructorHelpers.h"
+#include "BattleOfDistantHoriz/Characters/SpaceShipPawn.h"
 
 // Sets default values
 ATurretEnemyProjectile::ATurretEnemyProjectile()
@@ -22,22 +23,22 @@ ATurretEnemyProjectile::ATurretEnemyProjectile()
 
 	RootComponent = SphereCollider;
 
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PROJECTILE_01(TEXT("/Game/StylizedProjectiles/Particles/Projectile_13/P_Projectile_13"));
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PROJECTILE_01_HIT(TEXT("/Game/StylizedProjectiles/Particles/Projectile_13/P_Projectile_13_Hit"));
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PROJECTILE_01(TEXT("/Game/StylizedProjectiles/Particles/Projectile_06/P_Projectile_06"));
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PROJECTILE_01_HIT(TEXT("/Game/StylizedProjectiles/Particles/Projectile_06/P_Projectile_06_Hit"));
 
 	ProjectileParticle->SetupAttachment(SphereCollider);
 	ProjectileParticle->SetAutoActivate(false);
 
 	SphereCollider->OnComponentBeginOverlap.AddDynamic(this, &ATurretEnemyProjectile::SphereColliderBeginOverlap);
+	SphereCollider->OnComponentHit.AddDynamic(this, &ATurretEnemyProjectile::OnProjectileHit);
 	SphereCollider->SetHiddenInGame(true);
 
 	SphereCollider->SetGenerateOverlapEvents(true);
-	SphereCollider->SetCollisionProfileName(FName("ProjectileProfile"));
-	SphereCollider->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);
+	SphereCollider->SetCollisionProfileName(FName("OverlapAll"));
 
 	SphereCollider->SetSphereRadius(32.0f);
 
-	ProjectileMovimentComp->InitialSpeed = 5000.f;
+	ProjectileMovimentComp->InitialSpeed = 10000.f;
 	ProjectileMovimentComp->MaxSpeed = 15000.f;
 	ProjectileMovimentComp->bRotationFollowsVelocity = false;
 	ProjectileMovimentComp->bShouldBounce = false;
@@ -62,6 +63,11 @@ void ATurretEnemyProjectile::BeginPlay()
 
 }
 
+void ATurretEnemyProjectile::OnProjectileHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit )
+{
+	UE_LOG(LogTemp, Warning, TEXT("PROJECTILE HIT %s"), *OtherActor->GetName());
+}
+
 void ATurretEnemyProjectile::SphereColliderBeginOverlap(class UPrimitiveComponent *OverlappedComp, class AActor *Other, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
 {
 	if ((Other != nullptr) && (Other != this) && (OtherComp != nullptr) && (Other->GetName().Contains("SpaceShipPawn")))
@@ -79,7 +85,13 @@ void ATurretEnemyProjectile::SphereColliderBeginOverlap(class UPrimitiveComponen
 			UGameplayStatics::SpawnEmitterAtLocation(W, Projectile01_Hit_Particle, SweepResult.Location, SweepResult.Normal.Rotation());
 		}
 
-		SetLifeSpan(0.5);
+		auto ship = Cast<ASpaceShipPawn>(Other);
+
+		if(ship){
+			ship->DecrementLife(5.0f);
+		}
+
+		SetLifeSpan(0.1f);
 	}
 }
 

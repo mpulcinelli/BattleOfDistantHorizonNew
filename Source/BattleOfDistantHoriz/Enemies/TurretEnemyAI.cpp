@@ -6,6 +6,7 @@
 #include "Engine/SkeletalMesh.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "DrawDebugHelpers.h"
+#include "Components/CapsuleComponent.h"
 #include "BattleOfDistantHoriz/Enemies/TurretEnemyProjectile.h"
 
 // Sets default values
@@ -27,13 +28,14 @@ ATurretEnemyAI::ATurretEnemyAI()
 	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_TURRET(TEXT("/Game/Inimigo/Meshes/treco"));
 
 	GetMesh()->SetSkeletalMesh(ConstructorStatics.SKT_TURRET.Get());
+	GetCapsuleComponent()->SetMobility(EComponentMobility::Static);
 
 	this->AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 
 
 	PawnSensing = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensing"));
-	PawnSensing->SetPeripheralVisionAngle(50.0f);
-	PawnSensing->SightRadius = 7520.0f;
+	PawnSensing->SetPeripheralVisionAngle(30.0f);
+	PawnSensing->SightRadius = 20000.0f;
 	PawnSensing->SetSensingUpdatesEnabled(true);
 	PawnSensing->bSeePawns = true;
 	PawnSensing->bOnlySensePlayers = true;
@@ -74,7 +76,7 @@ void ATurretEnemyAI::BeginPlay()
 
 void ATurretEnemyAI::OnSeePawnByAi(APawn *SeenPawn)
 {
-	DrawDebugLine(GetWorld(), this->GetActorLocation(), SeenPawn->GetActorLocation(), FColor::Red, false, 10.0f);
+	//DrawDebugLine(GetWorld(), this->GetActorLocation(), SeenPawn->GetActorLocation(), FColor::Red, false, 10.0f);
 	auto TargetRot = UKismetMathLibrary::FindLookAtRotation(this->GetActorLocation(), SeenPawn->GetActorLocation());
 	FireSelection(this->GetActorLocation(), TargetRot);
 }

@@ -40,6 +40,9 @@ public:
 	UFUNCTION()
 	void SphereColliderBeginOverlap(class UPrimitiveComponent *OverlappedComp, class AActor *Other, class UPrimitiveComponent *OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
+	UFUNCTION()
+	void OnProjectileHit(class UPrimitiveComponent* HitComponent,  class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 	void ExecuteFire();
 
 };

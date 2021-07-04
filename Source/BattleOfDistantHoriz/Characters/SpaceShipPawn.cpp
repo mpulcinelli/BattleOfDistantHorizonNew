@@ -300,6 +300,19 @@ void ASpaceShipPawn::BeginPlay()
 	GetWorld()->GetTimerManager().SetTimer(DecrementFuelTimerHandle, this, &ASpaceShipPawn::DecrementFuel, 2.0f, true, 2.0f);
 }
 
+void ASpaceShipPawn::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+	Super::NotifyActorBeginOverlap(OtherActor);
+
+	if(OtherActor->GetName().Contains("TurretEnemyProjectile"))
+	{
+		if (UWorld *world = GetWorld())
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(world, CollisionExplodeParticle, OtherActor->GetActorLocation(), OtherActor->GetActorRotation());
+		}
+	}
+}
+
 // Called to bind functionality to input
 void ASpaceShipPawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {

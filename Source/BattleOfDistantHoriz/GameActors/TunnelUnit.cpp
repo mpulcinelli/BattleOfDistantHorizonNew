@@ -118,7 +118,8 @@ ATunnelUnit::ATunnelUnit()
 	AreaToSpawnFuelPickUp->SetGenerateOverlapEvents(false);
 	AreaToSpawnFuelPickUp->SetCollisionProfileName(FName("BoxSpawnFuelProfile"));
 
-	AreaToSpawnTurret->SetRelativeLocation(FVector(1270.000000,0.000000,-2240.000000));
+	AreaToSpawnTurret->SetRelativeLocation(FVector(1270.000000,0.000000,2270.000000));
+	AreaToSpawnTurret->SetRelativeRotation(FRotator(0.000000,0.000000,180.000000));
 	AreaToSpawnTurret->SetRelativeScale3D(FVector(30.0, 45.0, 1.0));
 	AreaToSpawnTurret->SetGenerateOverlapEvents(false);
 	AreaToSpawnTurret->SetCollisionProfileName(FName("BoxSpawnFuelProfile"));
@@ -161,7 +162,10 @@ void ATunnelUnit::BeginPlay()
 		AddLaserWall();
 	}
 
-	AddEnemyTurret();
+	if(FMath::RandRange(0, 3)==2){
+		AddEnemyTurret();
+	}
+
 }
 
 void ATunnelUnit::BeginDestroy()
