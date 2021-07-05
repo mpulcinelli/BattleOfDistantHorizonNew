@@ -31,12 +31,12 @@ ABattleOfDistantHorizPawn::ABattleOfDistantHorizPawn()
 	// Create a spring arm component
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm0"));
 	SpringArm->SetupAttachment(RootComponent);	// Attach SpringArm to RootComponent
-	SpringArm->TargetArmLength = 160.0f; // The camera follows at this distance behind the character	
+	SpringArm->TargetArmLength = 160.0f; // The camera follows at this distance behind the character
 	SpringArm->SocketOffset = FVector(0.f,0.f,60.f);
 	SpringArm->bEnableCameraLag = false;	// Do not allow camera to lag
 	SpringArm->CameraLagSpeed = 15.f;
 
-	// Create camera component 
+	// Create camera component
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera0"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);	// Attach the camera
 	Camera->bUsePawnControlRotation = false; // Don't rotate camera with controller
@@ -64,7 +64,7 @@ void ABattleOfDistantHorizPawn::Tick(float DeltaSeconds)
 
 	// Rotate plane
 	AddActorLocalRotation(DeltaRotation);
-	
+
 	// Call any parent class Tick implementation
 	Super::Tick(DeltaSeconds);
 }
@@ -73,10 +73,8 @@ void ABattleOfDistantHorizPawn::NotifyHit(class UPrimitiveComponent* MyComp, cla
 {
 	Super::NotifyHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
 
-	// Deflect along the surface when we collide.
 	FRotator CurrentRotation = GetActorRotation();
 	SetActorRotation(FQuat::Slerp(CurrentRotation.Quaternion(), HitNormal.ToOrientationQuat(), 0.025f));
-	UE_LOG(LogTemp, Warning, TEXT("NotifyHit POOOOORRRRRRRRRRRRRRAAAAAAAAAAAAAAAAAAAAa"));
 }
 
 

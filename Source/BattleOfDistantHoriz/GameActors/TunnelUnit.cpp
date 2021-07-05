@@ -118,8 +118,8 @@ ATunnelUnit::ATunnelUnit()
 	AreaToSpawnFuelPickUp->SetGenerateOverlapEvents(false);
 	AreaToSpawnFuelPickUp->SetCollisionProfileName(FName("BoxSpawnFuelProfile"));
 
-	AreaToSpawnTurret->SetRelativeLocation(FVector(1270.000000,0.000000,2270.000000));
-	AreaToSpawnTurret->SetRelativeRotation(FRotator(0.000000,0.000000,180.000000));
+	AreaToSpawnTurret->SetRelativeLocation(FVector(1270.000000, 0.000000, 2270.000000));
+	AreaToSpawnTurret->SetRelativeRotation(FRotator(0.000000, 0.000000, 180.000000));
 	AreaToSpawnTurret->SetRelativeScale3D(FVector(30.0, 45.0, 1.0));
 	AreaToSpawnTurret->SetGenerateOverlapEvents(false);
 	AreaToSpawnTurret->SetCollisionProfileName(FName("BoxSpawnFuelProfile"));
@@ -140,32 +140,12 @@ void ATunnelUnit::BeginPlay()
 
 	EndTrigger->OnComponentBeginOverlap.AddDynamic(this, &ATunnelUnit::EndTriggerBeginOverlap);
 
-	// 20% de probabilidade de executar
-	if (FMath::RandRange(1, 5) == 3)
+	GM = Cast<ABattleOfDistantHorizGameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	if (GM)
 	{
-		short int qtd_estrelas = FMath::RandRange(0, 5);
-
-		for (short int i = 0; i < qtd_estrelas; i++)
-		{
-			AddPickUpStar();
-		}
+		SetupDifficultyLevel(GM->GetCurrentDifficulty());
 	}
-
-	// 10% de probabilidade de executar
-	if (FMath::RandRange(1, 10) == 5)
-	{
-		AddPickUpFuel();
-	}
-
-	if (FMath::RandRange(1, FMath::RandRange(5, 15)) == 10)
-	{
-		AddLaserWall();
-	}
-
-	if(FMath::RandRange(0, 3)==2){
-		AddEnemyTurret();
-	}
-
 }
 
 void ATunnelUnit::BeginDestroy()
@@ -200,7 +180,7 @@ void ATunnelUnit::AddEnemyTurret()
 
 	SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-//	FRotator RotationToSpawn = FRotator(0.0f);
+	//	FRotator RotationToSpawn = FRotator(0.0f);
 	FRotator RotationToSpawn = FRotator(0.0, -180.0, 0.0);
 
 	GetRandomPointIn3DBoxSpace(RandPointToTurret, AreaToSpawnTurret);
@@ -215,7 +195,6 @@ void ATunnelUnit::AddEnemyTurret()
 		turret->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
 	}
 }
-
 
 void ATunnelUnit::AddPickUpStar()
 {
@@ -286,13 +265,46 @@ void ATunnelUnit::EndTriggerBeginOverlap(class UPrimitiveComponent *OverlappedCo
 
 		for (auto &itm : ListOfCreatedActors)
 		{
-			if(itm)
+			if (itm)
 				itm->SetLifeSpan(0.5);
 		}
 
 		// Destroi o túnel.
 		SetLifeSpan(0.5);
 		bIsPendingKill = true;
+	}
+}
+
+void ATunnelUnit::SetupDifficultyLevel(EDifficultyLevel DifficultLevel)
+{
+	UE_LOG(LogTemp, Warning, TEXT("SetupDifficultyLevel %d"), DifficultLevel);
+
+	switch (DifficultLevel)
+	{
+	case EDifficultyLevel::SuperEasy:
+		SetSuperEasy();
+		break;
+	case EDifficultyLevel::Easy:
+		SetEasy();
+		break;
+	case EDifficultyLevel::Normal:
+		SetNormal();
+		break;
+	case EDifficultyLevel::AboveNormal:
+		SetAboveNormal();
+		break;
+	case EDifficultyLevel::Hign:
+		SetHign();
+		break;
+	case EDifficultyLevel::AboveHign:
+		SetAboveHign();
+		break;
+	case EDifficultyLevel::Extreme:
+		SetExtreme();
+		break;
+
+	default:
+		break;
 	}
 }
 
@@ -342,6 +354,177 @@ void ATunnelUnit::ShuffleLight(int OptShuffle)
 		default:
 			break;
 		}
+	}
+}
+
+void ATunnelUnit::SetSuperEasy()
+{
+	if (FMath::RandRange(1, 10) == 5)
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 1);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
+	if (FMath::RandRange(1, 3) == 2)
+	{
+		AddPickUpFuel();
+	}
+}
+
+void ATunnelUnit::SetEasy()
+{
+	if (FMath::RandRange(1, 10) == 5)
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 3);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
+	if (FMath::RandRange(1, 5) == 3)
+	{
+		AddPickUpFuel();
+	}
+
+}
+
+void ATunnelUnit::SetNormal()
+{
+	if (FMath::RandRange(1, 4) == 2)
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 4);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
+	if (FMath::RandRange(1, 8) == 3)
+	{
+		AddPickUpFuel();
+	}
+
+	if (FMath::RandRange(1, 10) == 5)
+	{
+		AddLaserWall();
+	}
+}
+
+void ATunnelUnit::SetAboveNormal()
+{
+	if (FMath::RandRange(1, 4) == 2)
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 4);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
+	if (FMath::RandRange(1, 10) == 5)
+	{
+		AddPickUpFuel();
+	}
+
+	if (FMath::RandRange(1, 10) == 5)
+	{
+		AddLaserWall();
+	}
+
+}
+
+void ATunnelUnit::SetHign()
+{
+
+	if (FMath::RandRange(1, 4) == 2)
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 4);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
+	if (FMath::RandRange(1, 10) == 5)
+	{
+		AddPickUpFuel();
+	}
+
+	if (FMath::RandRange(1, 5) == 3)
+	{
+		AddLaserWall();
+	}
+
+	if (FMath::RandRange(0, 15) == 5)
+	{
+		AddEnemyTurret();
+	}
+
+}
+
+void ATunnelUnit::SetAboveHign()
+{
+	if (FMath::RandRange(1, 4) == 2)
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 4);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
+	if (FMath::RandRange(1, 15) == 5)
+	{
+		AddPickUpFuel();
+	}
+
+	if (FMath::RandRange(1, 4) == 2)
+	{
+		AddLaserWall();
+	}
+
+	if (FMath::RandRange(0, 5) == 2)
+	{
+		AddEnemyTurret();
+	}
+
+}
+
+void ATunnelUnit::SetExtreme()
+{
+	if (FMath::RandRange(1, 4) == 2)
+	{
+		short int qtd_estrelas = FMath::RandRange(0, 6);
+
+		for (short int i = 0; i < qtd_estrelas; i++)
+		{
+			AddPickUpStar();
+		}
+	}
+
+	if (FMath::RandRange(1, 5) == 2)
+	{
+		AddPickUpFuel();
+	}
+
+	if (FMath::RandRange(1, 2) == 1)
+	{
+		AddLaserWall();
+	}
+
+	if (FMath::RandRange(0, 3) == 2)
+	{
+		AddEnemyTurret();
 	}
 }
 

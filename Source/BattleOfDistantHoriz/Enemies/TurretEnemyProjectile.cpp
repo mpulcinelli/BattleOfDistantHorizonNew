@@ -79,15 +79,12 @@ void ATurretEnemyProjectile::SphereColliderBeginOverlap(class UPrimitiveComponen
 			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 		}
 
-		auto W = GetWorld();
-		if (W)
+		if (auto W = GetWorld())
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(W, Projectile01_Hit_Particle, SweepResult.Location, SweepResult.Normal.Rotation());
 		}
 
-		auto ship = Cast<ASpaceShipPawn>(Other);
-
-		if(ship){
+		if(auto ship = Cast<ASpaceShipPawn>(Other)){
 			ship->DecrementLife(5.0f);
 		}
 
