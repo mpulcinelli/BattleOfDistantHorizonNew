@@ -7,7 +7,7 @@
 #include "FuelPickUp.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class BATTLEOFDISTANTHORIZ_API AFuelPickUp : public APickUpBase
@@ -26,11 +26,15 @@ public:
 	UPROPERTY(Category = ParticleSystem, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UParticleSystemComponent *FuelConsumedParticle;
 
+	UPROPERTY(Category = Audio, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UAudioComponent *AudioComponent;
+
+
 
 	UPROPERTY(Category = Rotation, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class URotatingMovementComponent *FuelTankRotation;
 
-	
+
 
 protected:
 	// Called when the game starts or when spawned

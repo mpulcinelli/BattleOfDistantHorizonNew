@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "TurretEnemyProjectile.h"
 
 #include "Particles/ParticleSystemComponent.h"
@@ -14,7 +13,20 @@
 // Sets default values
 ATurretEnemyProjectile::ATurretEnemyProjectile()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	struct FConstructorStatics
+	{
+		ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_PROJECTILE_01;
+		ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_PROJECTILE_01_HIT;
+		FConstructorStatics() :
+		PS_PROJECTILE_01(TEXT("/Game/StylizedProjectiles/Particles/Projectile_06/P_Projectile_06")),
+		PS_PROJECTILE_01_HIT(TEXT("/Game/StylizedProjectiles/Particles/Projectile_06/P_Projectile_06_Hit"))
+		{
+		}
+	};
+
+	static FConstructorStatics ConstructorStatics;
+
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
 	SphereCollider = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollider"));
@@ -22,9 +34,6 @@ ATurretEnemyProjectile::ATurretEnemyProjectile()
 	ProjectileMovimentComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovimentComp"));
 
 	RootComponent = SphereCollider;
-
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PROJECTILE_01(TEXT("/Game/StylizedProjectiles/Particles/Projectile_06/P_Projectile_06"));
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PROJECTILE_01_HIT(TEXT("/Game/StylizedProjectiles/Particles/Projectile_06/P_Projectile_06_Hit"));
 
 	ProjectileParticle->SetupAttachment(SphereCollider);
 	ProjectileParticle->SetAutoActivate(false);
@@ -48,22 +57,20 @@ ATurretEnemyProjectile::ATurretEnemyProjectile()
 
 	InitialLifeSpan = 5.0f;
 
-	if(PS_PROJECTILE_01.Object!=nullptr)
-		ProjectileParticle->SetTemplate(PS_PROJECTILE_01.Object);
+	if (ConstructorStatics.PS_PROJECTILE_01.Get() != nullptr)
+		ProjectileParticle->SetTemplate(ConstructorStatics.PS_PROJECTILE_01.Get());
 
-	if(PS_PROJECTILE_01_HIT.Object!=nullptr)
-		Projectile01_Hit_Particle = PS_PROJECTILE_01_HIT.Object;
-
+	if (ConstructorStatics.PS_PROJECTILE_01_HIT.Get() != nullptr)
+		Projectile01_Hit_Particle = ConstructorStatics.PS_PROJECTILE_01_HIT.Get();
 }
 
 // Called when the game starts or when spawned
 void ATurretEnemyProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
-void ATurretEnemyProjectile::OnProjectileHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit )
+void ATurretEnemyProjectile::OnProjectileHit(UPrimitiveComponent *HitComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit)
 {
 	UE_LOG(LogTemp, Warning, TEXT("PROJECTILE HIT %s"), *OtherActor->GetName());
 }
@@ -84,7 +91,8 @@ void ATurretEnemyProjectile::SphereColliderBeginOverlap(class UPrimitiveComponen
 			UGameplayStatics::SpawnEmitterAtLocation(W, Projectile01_Hit_Particle, SweepResult.Location, SweepResult.Normal.Rotation());
 		}
 
-		if(auto ship = Cast<ASpaceShipPawn>(Other)){
+		if (auto ship = Cast<ASpaceShipPawn>(Other))
+		{
 			ship->DecrementLife(5.0f);
 		}
 
@@ -97,4 +105,3 @@ void ATurretEnemyProjectile::ExecuteFire()
 	ProjectileParticle->Activate(true);
 	ProjectileMovimentComp->SetActive(true, true);
 }
-

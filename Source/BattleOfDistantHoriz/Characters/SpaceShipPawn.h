@@ -92,6 +92,9 @@ public:
 	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* Shield_Mesh;
 
+	UPROPERTY(Category = Audio, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UAudioComponent *AudioComponent;
+
 
 	/** Spring arm that will offset the camera */
 	UPROPERTY(Category = Camera, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
@@ -110,7 +113,7 @@ public:
 	virtual void NotifyHit(class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit) override;
 	virtual void BeginPlay() override;
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
-	
+
 	// End AActor overrides
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	class UArrowComponent* ArrowGuid_1;

@@ -8,8 +8,18 @@
 
 AStarObstacle::AStarObstacle()
 {
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PLASMA(TEXT("/Game/FXVarietyPack/Particles/P_ky_waterBall"));
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_PLASMA_EXPLODE(TEXT("/Game/FXVarietyPack/Particles/P_ky_hit1"));
+
+	struct FConstructorStatics
+	{
+		ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_PLASMA;
+        ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_PLASMA_EXPLODE;
+		FConstructorStatics() :
+            PS_PLASMA(TEXT("/Game/FXVarietyPack/Particles/P_ky_waterBall")),
+            PS_PLASMA_EXPLODE(TEXT("/Game/FXVarietyPack/Particles/P_ky_hit1"))
+        {}
+	};
+
+	static FConstructorStatics ConstructorStatics;
 
     PlasmaParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("PlasmaParticle"));
     PlasmaExplodeParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("PlasmaExplodeParticle"));
@@ -27,13 +37,13 @@ AStarObstacle::AStarObstacle()
     ObstacleMesh->SetRelativeScale3D(FVector(StarSizeHitPoints, StarSizeHitPoints, StarSizeHitPoints));
     ObstacleMesh->SetCollisionProfileName(FName("OverlapAll"));
 
-    if (PS_PLASMA.Object != nullptr)
+    if (ConstructorStatics.PS_PLASMA.Get() != nullptr)
     {
-        PlasmaParticle->SetTemplate(PS_PLASMA.Object);
+        PlasmaParticle->SetTemplate(ConstructorStatics.PS_PLASMA.Get());
     }
-    if (PS_PLASMA_EXPLODE.Object != nullptr)
+    if (ConstructorStatics.PS_PLASMA_EXPLODE.Get() != nullptr)
     {
-        PlasmaExplodeParticle->SetTemplate(PS_PLASMA_EXPLODE.Object);
+        PlasmaExplodeParticle->SetTemplate(ConstructorStatics.PS_PLASMA_EXPLODE.Get());
     }
 }
 

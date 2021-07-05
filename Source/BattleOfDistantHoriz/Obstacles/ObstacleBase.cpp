@@ -12,16 +12,22 @@
 // Sets default values
 AObstacleBase::AObstacleBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	struct FConstructorStatics
+	{
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_PICK_UP;
+		FConstructorStatics() : SM_PICK_UP(TEXT("/Game/Geometry/Meshes/PickUpMesh")) {}
+	};
+
+	static FConstructorStatics ConstructorStatics;
+
 	PrimaryActorTick.bCanEverTick = true;
 	ObstacleMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PickUpMesh"));
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_PICK_UP(TEXT("/Game/Geometry/Meshes/PickUpMesh"));
 
 	RootComponent = ObstacleMesh;
 
-	if(SM_PICK_UP.Object!=nullptr){
-		ObstacleMesh->SetStaticMesh(SM_PICK_UP.Object);
+	if(ConstructorStatics.SM_PICK_UP.Get()!=nullptr){
+		ObstacleMesh->SetStaticMesh(ConstructorStatics.SM_PICK_UP.Get());
 	}
 
 }

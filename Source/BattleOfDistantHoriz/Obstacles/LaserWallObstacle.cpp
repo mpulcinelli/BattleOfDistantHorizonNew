@@ -10,7 +10,13 @@
 
 ALaserWallObstacle::ALaserWallObstacle()
 {
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_LASER(TEXT("/Game/ParticleEffects/PS_RAio"));
+	struct FConstructorStatics
+	{
+		ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_LASER;
+		FConstructorStatics() : PS_LASER(TEXT("/Game/ParticleEffects/PS_RAio")) {}
+	};
+
+	static FConstructorStatics ConstructorStatics;
 
     PrimaryActorTick.bCanEverTick = false;
 
@@ -109,15 +115,15 @@ ALaserWallObstacle::ALaserWallObstacle()
     Laser_07_Collision->SetRelativeScale3D(FVector(1.0, 150.0, 1.0));
     Laser_07_Collision->SetCollisionProfileName("BlockAll");
 
-    if (PS_LASER.Object != nullptr)
+    if (ConstructorStatics.PS_LASER.Get() != nullptr)
     {
-        Laser_01_Particle->SetTemplate(PS_LASER.Object);
-        Laser_02_Particle->SetTemplate(PS_LASER.Object);
-        Laser_03_Particle->SetTemplate(PS_LASER.Object);
-        Laser_04_Particle->SetTemplate(PS_LASER.Object);
-        Laser_05_Particle->SetTemplate(PS_LASER.Object);
-        Laser_06_Particle->SetTemplate(PS_LASER.Object);
-        Laser_07_Particle->SetTemplate(PS_LASER.Object);
+        Laser_01_Particle->SetTemplate(ConstructorStatics.PS_LASER.Get());
+        Laser_02_Particle->SetTemplate(ConstructorStatics.PS_LASER.Get());
+        Laser_03_Particle->SetTemplate(ConstructorStatics.PS_LASER.Get());
+        Laser_04_Particle->SetTemplate(ConstructorStatics.PS_LASER.Get());
+        Laser_05_Particle->SetTemplate(ConstructorStatics.PS_LASER.Get());
+        Laser_06_Particle->SetTemplate(ConstructorStatics.PS_LASER.Get());
+        Laser_07_Particle->SetTemplate(ConstructorStatics.PS_LASER.Get());
     }
 }
 
@@ -254,7 +260,7 @@ void ALaserWallObstacle::OnHitLaser(UPrimitiveComponent *HitComp, AActor *OtherA
         }
 
         HitComp->DestroyComponent();
-        
+
         if (isPlayer)
         {
             isPlayer->DecrementLife(5.0f);

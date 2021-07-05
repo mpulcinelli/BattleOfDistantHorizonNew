@@ -16,40 +16,80 @@
 #include "BattleOfDistantHoriz/Helpers/UserWidgetHelper.h"
 #include "BattleOfDistantHoriz/GameActors/TunnelUnit.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundCue.h"
 #include "Components/PointLightComponent.h"
 
 // Sets default values
 ASpaceShipPawn::ASpaceShipPawn()
 {
+
+	struct FConstructorStatics
+	{
+
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_SPACESHIP_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_LANDING_GEAR_BACK_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_LANDING_GEAR_FRONT_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT1_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT2_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT3A_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT3B_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT4A_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT4B_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT5_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT6_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT7_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_HARDPOINT8_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_MISSILE1_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_MISSILE2_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_SHIELD_MESH;
+		ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_COLLISION_EXPLODE;
+		ConstructorHelpers::FObjectFinderOptional<USoundCue> CUE_CHARG_UP_SOUND;
+
+		FConstructorStatics()
+			: SM_SPACESHIP_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Spaceship_alter")),
+			  SM_LANDING_GEAR_BACK_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Landing_Gear_Back")),
+			  SM_LANDING_GEAR_FRONT_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Landing_Gear_Front")),
+			  SM_HARDPOINT1_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_1")),
+			  SM_HARDPOINT2_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_1b")),
+			  SM_HARDPOINT3A_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5b")),
+			  SM_HARDPOINT3B_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5a")),
+			  SM_HARDPOINT4A_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5b")),
+			  SM_HARDPOINT4B_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5a")),
+			  SM_HARDPOINT5_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_3")),
+			  SM_HARDPOINT6_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_3")),
+			  SM_HARDPOINT7_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_2")),
+			  SM_HARDPOINT8_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_2")),
+			  SM_MISSILE1_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Missile_1")),
+			  SM_MISSILE2_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Missile_1")),
+			  SM_SHIELD_MESH(TEXT("/Game/SciFi_Ship/Update1/Props/Spaceship_Shield")),
+			  PS_COLLISION_EXPLODE(TEXT("/Game/MobileStarterContent/Particles/P_Explosion")),
+			  CUE_CHARG_UP_SOUND(TEXT("/Game/Audio/sci-fi-charge-up_Cue"))
+		{
+		}
+	};
+	static FConstructorStatics ConstructorStatics;
+
+	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComponent"));
+    AudioComponent->SetupAttachment(RootComponent);
+    AudioComponent->SetAutoActivate(false);
+
+    if(ConstructorStatics.CUE_CHARG_UP_SOUND.Get()!=nullptr){
+        AudioComponent->SetSound(ConstructorStatics.CUE_CHARG_UP_SOUND.Get());
+    }
+
+
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_SPACESHIP_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Spaceship_alter"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_LANDING_GEAR_BACK_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Landing_Gear_Back"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_LANDING_GEAR_FRONT_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Landing_Gear_Front"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT1_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_1"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT2_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_1b"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT3A_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5b"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT3B_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5a"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT4A_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5b"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT4B_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_5a"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT5_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_3"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT6_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_3"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT7_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_2"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_HARDPOINT8_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Hardpoint_2"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MISSILE1_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Missile_1"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_MISSILE2_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Missile_1"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_SHIELD_MESH(TEXT("/Game/SciFi_Ship/Update1/Props/Spaceship_Shield"));
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_COLLISION_EXPLODE(TEXT("/Game/MobileStarterContent/Particles/P_Explosion"));
-
-	if (PS_COLLISION_EXPLODE.Object != nullptr)
+	if (ConstructorStatics.PS_COLLISION_EXPLODE.Get() != nullptr)
 	{
-		CollisionExplodeParticle = PS_COLLISION_EXPLODE.Object;
+		CollisionExplodeParticle = ConstructorStatics.PS_COLLISION_EXPLODE.Get();
 	}
 
 	// Create static mesh component
 	SpaceShip_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SpaceShip_Mesh"));
-	SpaceShip_Mesh->SetStaticMesh(SM_SPACESHIP_MESH.Object);
+	SpaceShip_Mesh->SetStaticMesh(ConstructorStatics.SM_SPACESHIP_MESH.Get());
 	SpaceShip_Mesh->SetCollisionProfileName(FName("Pawn"));
 	SpaceShip_Mesh->SetNotifyRigidBodyCollision(true);
 
@@ -66,7 +106,7 @@ ASpaceShipPawn::ASpaceShipPawn()
 	PoitLightTop->SetupAttachment(SpaceShip_Mesh);
 
 	Hardpoint1_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint1_Mesh"));
-	Hardpoint1_Mesh->SetStaticMesh(SM_HARDPOINT1_MESH.Object);
+	Hardpoint1_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT1_MESH.Get());
 	Hardpoint1_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint1_Mesh->SetRelativeLocation(FVector(39.158077, -94.999969, -49.336540));
 	Hardpoint1_Mesh->SetRelativeRotation(FRotator(0.000000, 90.000000, -0.000183));
@@ -88,7 +128,7 @@ ASpaceShipPawn::ASpaceShipPawn()
 	ArrowCrossHairHandle->SetCollisionProfileName(FName("ArrowProfile"));
 
 	Hardpoint2_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint2_Mesh"));
-	Hardpoint2_Mesh->SetStaticMesh(SM_HARDPOINT2_MESH.Object);
+	Hardpoint2_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT2_MESH.Get());
 	Hardpoint2_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint2_Mesh->SetRelativeLocation(FVector(39.158077, 95.000031, -49.336540));
 	Hardpoint2_Mesh->SetRelativeRotation(FRotator(0.000000, 90.000000, 0.000000));
@@ -102,13 +142,13 @@ ASpaceShipPawn::ASpaceShipPawn()
 	ArrowGuid_1->SetCollisionProfileName(FName("ArrowProfile"));
 
 	Hardpoint3a_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint3a_Mesh"));
-	Hardpoint3a_Mesh->SetStaticMesh(SM_HARDPOINT3A_MESH.Object);
+	Hardpoint3a_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT3A_MESH.Get());
 	Hardpoint3a_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint3a_Mesh->SetRelativeLocation(FVector(250.000000, -116.000000, -107.000000));
 	Hardpoint3a_Mesh->SetRelativeRotation(FRotator(0.000000, 90.000000, 0.00));
 
 	Hardpoint3b_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint3b_Mesh"));
-	Hardpoint3b_Mesh->SetStaticMesh(SM_HARDPOINT3B_MESH.Object);
+	Hardpoint3b_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT3B_MESH.Get());
 	Hardpoint3b_Mesh->SetupAttachment(Hardpoint3a_Mesh);
 	Hardpoint3b_Mesh->SetRelativeLocation(FVector(0.000000, 0.000, 0.00));
 	Hardpoint3b_Mesh->SetRelativeRotation(FRotator(0.000000, 0.000000, 0.00));
@@ -121,13 +161,13 @@ ASpaceShipPawn::ASpaceShipPawn()
 	ArrowGuid_3->SetCollisionProfileName(FName("ArrowProfile"));
 
 	Hardpoint4a_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint4a_Mesh"));
-	Hardpoint4a_Mesh->SetStaticMesh(SM_HARDPOINT4A_MESH.Object);
+	Hardpoint4a_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT4A_MESH.Get());
 	Hardpoint4a_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint4a_Mesh->SetRelativeLocation(FVector(250.000000, 116.000000, -107.000000));
 	Hardpoint4a_Mesh->SetRelativeRotation(FRotator(0.000000, 90.000000, 0.000000));
 
 	Hardpoint4b_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint4b_Mesh"));
-	Hardpoint4b_Mesh->SetStaticMesh(SM_HARDPOINT4B_MESH.Object);
+	Hardpoint4b_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT4B_MESH.Get());
 	Hardpoint4b_Mesh->SetupAttachment(Hardpoint4a_Mesh);
 	Hardpoint4b_Mesh->SetRelativeLocation(FVector(0.000000, 0.000, 0.00));
 	Hardpoint4b_Mesh->SetRelativeRotation(FRotator(0.000000, 0.000000, 0.00));
@@ -140,7 +180,7 @@ ASpaceShipPawn::ASpaceShipPawn()
 	ArrowGuid_4->SetCollisionProfileName(FName("ArrowProfile"));
 
 	Hardpoint5_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint5_Mesh"));
-	Hardpoint5_Mesh->SetStaticMesh(SM_HARDPOINT5_MESH.Object);
+	Hardpoint5_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT5_MESH.Get());
 	Hardpoint5_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint5_Mesh->SetRelativeLocation(FVector(-647.000000, 470.000000, -90.000000));
 	Hardpoint5_Mesh->SetRelativeRotation(FRotator(0.000000, 90.000000, -0.000183));
@@ -153,7 +193,7 @@ ASpaceShipPawn::ASpaceShipPawn()
 	ArrowGuid_5->SetCollisionProfileName(FName("ArrowProfile"));
 
 	Hardpoint6_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint6_Mesh"));
-	Hardpoint6_Mesh->SetStaticMesh(SM_HARDPOINT6_MESH.Object);
+	Hardpoint6_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT6_MESH.Get());
 	Hardpoint6_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint6_Mesh->SetRelativeLocation(FVector(-647.002625, -470.000000, -90.000000));
 	Hardpoint6_Mesh->SetRelativeRotation(FRotator(0.000000, 90.000000, -0.000183));
@@ -167,31 +207,31 @@ ASpaceShipPawn::ASpaceShipPawn()
 	ArrowGuid_6->SetCollisionProfileName(FName("ArrowProfile"));
 
 	Hardpoint7_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint7_Mesh"));
-	Hardpoint7_Mesh->SetStaticMesh(SM_HARDPOINT7_MESH.Object);
+	Hardpoint7_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT7_MESH.Get());
 	Hardpoint7_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint7_Mesh->SetRelativeLocation(FVector(-1065.996460, 760.194092, 16.261547));
 	Hardpoint7_Mesh->SetRelativeRotation(FRotator(25.403126, -86.329445, 6.622577));
 
 	Missile1_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Missile1_Mesh"));
-	Missile1_Mesh->SetStaticMesh(SM_MISSILE1_MESH.Object);
+	Missile1_Mesh->SetStaticMesh(ConstructorStatics.SM_MISSILE1_MESH.Get());
 	Missile1_Mesh->SetupAttachment(Hardpoint7_Mesh);
 	Missile1_Mesh->SetRelativeLocation(FVector(-0.011426, 17.765997, 9.942518));
 	Missile1_Mesh->SetRelativeRotation(FRotator(43.199879, 0.000000, 0.000000));
 
 	Hardpoint8_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hardpoint8_Mesh"));
-	Hardpoint8_Mesh->SetStaticMesh(SM_HARDPOINT8_MESH.Object);
+	Hardpoint8_Mesh->SetStaticMesh(ConstructorStatics.SM_HARDPOINT8_MESH.Get());
 	Hardpoint8_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Hardpoint8_Mesh->SetRelativeLocation(FVector(-1065.937622, -760.432739, 16.771074));
 	Hardpoint8_Mesh->SetRelativeRotation(FRotator(-25.402170, -86.328018, 3.165193));
 
 	Missile2_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Missile2_Mesh"));
-	Missile2_Mesh->SetStaticMesh(SM_MISSILE2_MESH.Object);
+	Missile2_Mesh->SetStaticMesh(ConstructorStatics.SM_MISSILE2_MESH.Get());
 	Missile2_Mesh->SetupAttachment(Hardpoint8_Mesh);
 	Missile2_Mesh->SetRelativeLocation(FVector(0.364495, 14.212234, 9.278972));
 	Missile2_Mesh->SetRelativeRotation(FRotator(43.199879, 0.000000, 0.000000));
 
 	Shield_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Shield_Mesh"));
-	Shield_Mesh->SetStaticMesh(SM_SHIELD_MESH.Object);
+	Shield_Mesh->SetStaticMesh(ConstructorStatics.SM_SHIELD_MESH.Get());
 	Shield_Mesh->SetupAttachment(SpaceShip_Mesh);
 	Shield_Mesh->SetRelativeLocation(FVector(0.00, 0.00, 0.00));
 	Shield_Mesh->SetRelativeRotation(FRotator(0.000000, 90.000000, 0.000000));
@@ -210,6 +250,7 @@ ASpaceShipPawn::ASpaceShipPawn()
 	SpringArm->bInheritPitch = false;
 	SpringArm->bInheritRoll = false;
 	SpringArm->bInheritYaw = false;
+
 
 	// Create camera component
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera0"));
@@ -245,7 +286,7 @@ void ASpaceShipPawn::ShowShield()
 void ASpaceShipPawn::AddFuel(float fuel)
 {
 	FuelBanks.Push(fuel);
-	UE_LOG(LogTemp, Warning, TEXT("ASpaceShipPawn::AddFuel : %f"), fuel);
+	AudioComponent->Play();
 }
 
 // Called every frame
@@ -300,11 +341,11 @@ void ASpaceShipPawn::BeginPlay()
 	GetWorld()->GetTimerManager().SetTimer(DecrementFuelTimerHandle, this, &ASpaceShipPawn::DecrementFuel, 2.0f, true, 2.0f);
 }
 
-void ASpaceShipPawn::NotifyActorBeginOverlap(AActor* OtherActor)
+void ASpaceShipPawn::NotifyActorBeginOverlap(AActor *OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	if(OtherActor->GetName().Contains("TurretEnemyProjectile"))
+	if (OtherActor->GetName().Contains("TurretEnemyProjectile"))
 	{
 		if (UWorld *world = GetWorld())
 		{
@@ -513,7 +554,7 @@ void ASpaceShipPawn::DecrementFuel()
 
 	if (AmountFuel <= 0.0f)
 	{
-		if (FuelBanks.Num()<=0)
+		if (FuelBanks.Num() <= 0)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("NO MORE BANKS"));
 			bIsDead = true;
@@ -521,7 +562,9 @@ void ASpaceShipPawn::DecrementFuel()
 			ExplodeShip();
 			OnPlayerDiedNow.Broadcast();
 			OnPlayerDecrementFuel.Broadcast(AmountFuel);
-		}else{
+		}
+		else
+		{
 			UE_LOG(LogTemp, Warning, TEXT("USING EXISTANT BANK"));
 
 			AmountFuel = FuelBanks.Pop(true);

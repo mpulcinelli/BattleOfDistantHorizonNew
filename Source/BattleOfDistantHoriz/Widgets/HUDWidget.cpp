@@ -53,7 +53,6 @@ bool UHUDWidget::Initialize()
 
 void UHUDWidget::UpdateValorVida(float valor)
 {
-    //TxtLife->SetText(FText::FromString(FString::SanitizeFloat(valor)));
     float percent = valor / 100.0f;
     PBarLife->SetPercent(percent);
 }

@@ -20,7 +20,14 @@
 // Sets default values
 ATunnelUnit::ATunnelUnit()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	struct FConstructorStatics
+	{
+		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_TUNNEL_UNIT_OPEN;
+		FConstructorStatics() : SM_TUNNEL_UNIT_OPEN(TEXT("/Game/Geometry/Meshes/SM_Tunnel_Open_4800")) {}
+	};
+
+	static FConstructorStatics ConstructorStatics;
+
 	PrimaryActorTick.bCanEverTick = true;
 
 	USceneComponent *RootComp = CreateDefaultSubobject<USceneComponent>(TEXT("RootComp"));
@@ -35,9 +42,6 @@ ATunnelUnit::ATunnelUnit()
 	PoitLight04 = CreateDefaultSubobject<UPointLightComponent>(TEXT("PoitLight04"));
 	PoitLight05 = CreateDefaultSubobject<UPointLightComponent>(TEXT("PoitLight05"));
 	ArrowPositionNextBlock = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowPositionNextBlock"));
-
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_TUNNEL_UNIT_OPEN(TEXT("/Game/Geometry/Meshes/SM_Tunnel_Open_4800"));
-	//static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_TUNNEL_UNIT_OPEN(TEXT("/Game/Geometry/Meshes/Tunnel_Reto_4800"));
 
 	RootComponent = RootComp;
 
@@ -127,9 +131,9 @@ ATunnelUnit::ATunnelUnit()
 	ArrowPositionNextBlock->SetRelativeLocation(FVector(2400.000000, 0.000000, -2400.000000));
 	ArrowPositionNextBlock->SetRelativeScale3D(FVector(1.0f, 1.0f, 1.0f));
 
-	if (SM_TUNNEL_UNIT_OPEN.Object != nullptr)
+	if (ConstructorStatics.SM_TUNNEL_UNIT_OPEN.Get() != nullptr)
 	{
-		TunnelUnitMesh->SetStaticMesh(SM_TUNNEL_UNIT_OPEN.Object);
+		TunnelUnitMesh->SetStaticMesh(ConstructorStatics.SM_TUNNEL_UNIT_OPEN.Get());
 	}
 }
 

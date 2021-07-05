@@ -7,19 +7,37 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Particles/ParticleSystem.h"
 #include "GameFramework/RotatingMovementComponent.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundCue.h"
 #include "BattleOfDistantHoriz/Characters/SpaceShipPawn.h"
 
 AFuelPickUp::AFuelPickUp(const FObjectInitializer &ObjectInitializer) : Super(ObjectInitializer)
 {
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_PICK_UP(TEXT("/Game/Geometry/Meshes/BatteryPickup/BatteryPickUp"));
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_LIGHTNING(TEXT("/Game/FXVarietyPack/Particles/P_ky_lightning2"));
-    //static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_FUEL_CONSUMED(TEXT("/Game/FXVarietyPack/Particles/P_ky_hit2"));
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> PS_FUEL_CONSUMED(TEXT("/Game/FXVarietyPack/Particles/P_ky_shotShockwave"));
+	struct FConstructorStatics
+	{
+        ConstructorHelpers::FObjectFinderOptional<UStaticMesh>     SM_PICK_UP;
+        ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_LIGHTNING;
+        ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_FUEL_CONSUMED;
+        ConstructorHelpers::FObjectFinderOptional<USoundCue> CUE_BOLT_SOUND;
+		FConstructorStatics() :
+            SM_PICK_UP(TEXT("/Game/Geometry/Meshes/BatteryPickup/BatteryPickUp")),
+            PS_LIGHTNING(TEXT("/Game/FXVarietyPack/Particles/P_ky_lightning2")),
+            PS_FUEL_CONSUMED(TEXT("/Game/FXVarietyPack/Particles/P_ky_shotShockwave")),
+            CUE_BOLT_SOUND(TEXT("/Game/Audio/energy-bounce_au_Cue"))
+        {}
+	};
+
+	static FConstructorStatics ConstructorStatics;
 
     TopLigh = CreateDefaultSubobject<URectLightComponent>(TEXT("TopLigh"));
     BoltParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("BoltParticle"));
     FuelTankRotation = CreateDefaultSubobject<URotatingMovementComponent>(TEXT("FuelTankRotation"));
     FuelConsumedParticle = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("FuelConsumedParticle"));
+    AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComponent"));
+
+
+    AudioComponent->SetupAttachment(RootComponent);
+    AudioComponent->SetAutoActivate(false);
 
     PickUpMesh->SetMobility(EComponentMobility::Movable);
 
@@ -43,20 +61,25 @@ AFuelPickUp::AFuelPickUp(const FObjectInitializer &ObjectInitializer) : Super(Ob
     PickUpMesh->SetCollisionProfileName(FName("OverlapAll"));
     QuantidadeCarga = FMath::RandRange(1.0f, 100.0f);
 
-    if (PS_FUEL_CONSUMED.Object != nullptr)
-    {
-        FuelConsumedParticle->SetTemplate(PS_FUEL_CONSUMED.Object);
-    }
-
-    if (PS_LIGHTNING.Object != nullptr)
-    {
-        BoltParticle->SetTemplate(PS_LIGHTNING.Object);
+    if(ConstructorStatics.CUE_BOLT_SOUND.Get()!=nullptr){
+        AudioComponent->SetSound(ConstructorStatics.CUE_BOLT_SOUND.Get());
     }
 
 
-    if (SM_PICK_UP.Object != nullptr)
+    if (ConstructorStatics.PS_FUEL_CONSUMED.Get() != nullptr)
     {
-        PickUpMesh->SetStaticMesh(SM_PICK_UP.Object);
+        FuelConsumedParticle->SetTemplate(ConstructorStatics.PS_FUEL_CONSUMED.Get());
+    }
+
+    if (ConstructorStatics.PS_LIGHTNING.Get() != nullptr)
+    {
+        BoltParticle->SetTemplate(ConstructorStatics.PS_LIGHTNING.Get());
+    }
+
+
+    if (ConstructorStatics.SM_PICK_UP.Get() != nullptr)
+    {
+        PickUpMesh->SetStaticMesh(ConstructorStatics.SM_PICK_UP.Get());
     }
 }
 
@@ -95,5 +118,6 @@ void AFuelPickUp::TriggerBoltParticle()
 {
     BoltParticle->Deactivate();
     BoltParticle->Activate();
+    AudioComponent->Play();
     UE_LOG(LogTemp, Warning, TEXT("TriggerBoltParticle - %s"), *this->GetName());
 }
