@@ -14,8 +14,10 @@ class BATTLEOFDISTANTHORIZ_API ASpaceShipPawn : public APawn
 public:
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerDecrementLife, float, ponto);
+
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerDecrementFuel, float, fuel);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPlayerDecrementFuelBank, int, fuelBank);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FPlayerSpeedUpdate, float, speed, float, minspeed, float, maxspeed);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPlayerDiedNow);
 
@@ -29,6 +31,8 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FPlayerDecrementFuelBank OnPlayerDecrementFuelBank;
 
+	UPROPERTY(BlueprintAssignable)
+	FPlayerSpeedUpdate OnPlayerSpeedUpdate;
 
 
 	UPROPERTY(BlueprintAssignable)

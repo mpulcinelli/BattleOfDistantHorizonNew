@@ -27,12 +27,18 @@ protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UTextBlock *TxtNumFuelBanks = nullptr;
 
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	class UProgressBar *PBarSpeed = nullptr;
+
 
 public:
 	virtual void NativeTick(const FGeometry &MyGeometry, float InDeltaTime) override;
 	virtual bool Initialize() override;
 
 private:
+	UFUNCTION()
+	void UpdateValorVelocidade(float valor, float min, float max);
+
 	UFUNCTION()
 	void UpdateValorVida(float valor);
 

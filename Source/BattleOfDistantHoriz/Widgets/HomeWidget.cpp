@@ -32,9 +32,7 @@ void UHomeWidget::NativeConstruct()
 
 void UHomeWidget::OnBtnJogar()
 {
-
-    auto GI = Cast<UBattleOfDistantHorizGameInstance>(GetGameInstance());
-    if(GI!=nullptr){
+    if(auto GI = Cast<UBattleOfDistantHorizGameInstance>(GetGameInstance())){
         GI->OpenLevel();
     }
 }

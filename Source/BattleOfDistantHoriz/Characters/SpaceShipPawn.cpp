@@ -383,6 +383,7 @@ void ASpaceShipPawn::ThrustInput(float Val)
 	float NewForwardSpeed = CurrentForwardSpeed + (GetWorld()->GetDeltaSeconds() * CurrentAcc);
 	// Clamp between MinSpeed and MaxSpeed
 	CurrentForwardSpeed = FMath::Clamp(NewForwardSpeed, MinSpeed, MaxSpeed);
+	OnPlayerSpeedUpdate.Broadcast(CurrentForwardSpeed, MinSpeed, MaxSpeed);
 }
 
 void ASpaceShipPawn::MoveUpInput(float Val)

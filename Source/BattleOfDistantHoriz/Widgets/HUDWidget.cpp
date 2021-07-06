@@ -13,11 +13,9 @@ void UHUDWidget::NativeTick(const FGeometry &MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
 
-    auto PC = GetWorld()->GetFirstPlayerController();
-    if (PC)
+    if (auto PC = GetWorld()->GetFirstPlayerController())
     {
-        auto PN = Cast<ASpaceShipPawn>(PC->GetPawn());
-        if (PN)
+        if (auto PN = Cast<ASpaceShipPawn>(PC->GetPawn()))
         {
             FVector WPos = PN->ArrowCrossHairHandle->GetComponentLocation();
             FVector2D RetScreenPos;
@@ -36,19 +34,24 @@ bool UHUDWidget::Initialize()
 {
     Super::Initialize();
 
-    auto PC = GetWorld()->GetFirstPlayerController();
-    if (PC)
+    if (auto PC = GetWorld()->GetFirstPlayerController())
     {
-        auto PN = Cast<ASpaceShipPawn>(PC->GetPawn());
-        if (PN)
+        if (auto PN = Cast<ASpaceShipPawn>(PC->GetPawn()))
         {
             PN->OnPlayerDecrementLife.AddDynamic(this, &UHUDWidget::UpdateValorVida);
             PN->OnPlayerDecrementFuel.AddDynamic(this, &UHUDWidget::UpdateValorCombustivel);
             PN->OnPlayerDecrementFuelBank.AddDynamic(this, &UHUDWidget::UpdateValorBancoCombustivel);
+            PN->OnPlayerSpeedUpdate.AddDynamic(this, &UHUDWidget::UpdateValorVelocidade);
         }
     }
 
     return true;
+}
+
+void UHUDWidget::UpdateValorVelocidade(float valor, float min, float max)
+{
+    float percent = valor / max;
+    PBarSpeed->SetPercent(percent);
 }
 
 void UHUDWidget::UpdateValorVida(float valor)
@@ -61,7 +64,6 @@ void UHUDWidget::UpdateValorCombustivel(float valor)
 {
     float percent = valor / 100.0f;
     PBarFuel->SetPercent(percent);
-    UE_LOG(LogTemp, Warning, TEXT("COMBUSTIVEL TELA: %f"), percent);
 }
 
 void UHUDWidget::UpdateValorBancoCombustivel(int valor)
