@@ -2,13 +2,32 @@
 
 #include "BattleOfDistantHorizGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "UObject/ConstructorHelpers.h"
 #include "BattleOfDistantHoriz/Helpers/UserWidgetHelper.h"
 #include "BattleOfDistantHoriz/Widgets/CountDownWidget.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundCue.h"
 
-// UBattleOfDistantHorizGameInstance::UBattleOfDistantHorizGameInstance(const FObjectInitializer& ObjectInitializer)
-// {
 
-// }
+UBattleOfDistantHorizGameInstance::UBattleOfDistantHorizGameInstance(const FObjectInitializer& ObjectInitializer)
+{
+struct FConstructorStatics
+	{
+
+		ConstructorHelpers::FObjectFinderOptional<USoundCue> CUE_COUNT_DOWN_SOUND;
+
+		FConstructorStatics()
+			: CUE_COUNT_DOWN_SOUND(TEXT("/Game/Audio/retro-sci-fi-dry_Cue"))
+		{
+		}
+	};
+	static FConstructorStatics ConstructorStatics;
+
+	if (ConstructorStatics.CUE_COUNT_DOWN_SOUND.Get() != nullptr)
+	{
+		SoundCountDown = ConstructorStatics.CUE_COUNT_DOWN_SOUND.Get();
+	}
+}
 
 void UBattleOfDistantHorizGameInstance::OpenLevel()
 {
@@ -31,6 +50,9 @@ void UBattleOfDistantHorizGameInstance::ExecuteCountDown()
         {
             wcd->SetCountDownText(FString::FromInt(count_down));
             count_down--;
+
+            if(SoundCountDown)
+                UGameplayStatics::PlaySound2D(GetWorld(), SoundCountDown, 1.0f);
         }
         else
         {
@@ -39,6 +61,10 @@ void UBattleOfDistantHorizGameInstance::ExecuteCountDown()
             {
                 wcd2->SetCountDownText(FString::FromInt(count_down));
                 count_down--;
+
+                if(SoundCountDown)
+                    UGameplayStatics::PlaySound2D(GetWorld(), SoundCountDown, 1.0f);
+
             }
         }
 

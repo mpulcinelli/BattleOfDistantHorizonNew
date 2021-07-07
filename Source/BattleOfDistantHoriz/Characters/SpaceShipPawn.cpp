@@ -23,6 +23,7 @@
 // Sets default values
 ASpaceShipPawn::ASpaceShipPawn()
 {
+	PrimaryActorTick.bCanEverTick = true;
 
 	struct FConstructorStatics
 	{
@@ -45,6 +46,8 @@ ASpaceShipPawn::ASpaceShipPawn()
 		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> SM_SHIELD_MESH;
 		ConstructorHelpers::FObjectFinderOptional<UParticleSystem> PS_COLLISION_EXPLODE;
 		ConstructorHelpers::FObjectFinderOptional<USoundCue> CUE_CHARG_UP_SOUND;
+		ConstructorHelpers::FObjectFinderOptional<USoundCue> CUE_SPACESHIP_HIT_SOUND;
+		ConstructorHelpers::FObjectFinderOptional<USoundCue> CUE_SPACESHIP_ENGINE_SOUND;
 
 		FConstructorStatics()
 			: SM_SPACESHIP_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Spaceship_alter")),
@@ -64,28 +67,13 @@ ASpaceShipPawn::ASpaceShipPawn()
 			  SM_MISSILE2_MESH(TEXT("/Game/SciFi_Ship/Static_Meshes/Missile_1")),
 			  SM_SHIELD_MESH(TEXT("/Game/SciFi_Ship/Update1/Props/Spaceship_Shield")),
 			  PS_COLLISION_EXPLODE(TEXT("/Game/MobileStarterContent/Particles/P_Explosion")),
-			  CUE_CHARG_UP_SOUND(TEXT("/Game/Audio/sci-fi-charge-up_Cue"))
+			  CUE_CHARG_UP_SOUND(TEXT("/Game/Audio/sci-fi-charge-up_Cue")),
+			  CUE_SPACESHIP_HIT_SOUND(TEXT("/Game/Audio/ship_hit_Cue")),
+			  CUE_SPACESHIP_ENGINE_SOUND(TEXT("/Game/Audio/ship-engine_Cue"))
 		{
 		}
 	};
 	static FConstructorStatics ConstructorStatics;
-
-	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComponent"));
-    AudioComponent->SetupAttachment(RootComponent);
-    AudioComponent->SetAutoActivate(false);
-
-    if(ConstructorStatics.CUE_CHARG_UP_SOUND.Get()!=nullptr){
-        AudioComponent->SetSound(ConstructorStatics.CUE_CHARG_UP_SOUND.Get());
-    }
-
-
-	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
-	if (ConstructorStatics.PS_COLLISION_EXPLODE.Get() != nullptr)
-	{
-		CollisionExplodeParticle = ConstructorStatics.PS_COLLISION_EXPLODE.Get();
-	}
 
 	// Create static mesh component
 	SpaceShip_Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SpaceShip_Mesh"));
@@ -94,6 +82,40 @@ ASpaceShipPawn::ASpaceShipPawn()
 	SpaceShip_Mesh->SetNotifyRigidBodyCollision(true);
 
 	RootComponent = SpaceShip_Mesh;
+
+	AudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComponent"));
+	AudioComponent->SetupAttachment(RootComponent);
+	AudioComponent->SetAutoActivate(false);
+
+	SpaceshipHitAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("SpaceshipHitAudioComponent"));
+	SpaceshipHitAudioComponent->SetupAttachment(RootComponent);
+	SpaceshipHitAudioComponent->SetAutoActivate(false);
+
+	SpaceshipEngineAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("SpaceshipEngineAudioComponent"));
+	SpaceshipEngineAudioComponent->SetupAttachment(RootComponent);
+	SpaceshipEngineAudioComponent->SetAutoActivate(false);
+
+
+	if (ConstructorStatics.CUE_CHARG_UP_SOUND.Get() != nullptr)
+	{
+		AudioComponent->SetSound(ConstructorStatics.CUE_CHARG_UP_SOUND.Get());
+	}
+
+	if (ConstructorStatics.CUE_SPACESHIP_HIT_SOUND.Get() != nullptr)
+	{
+		SpaceshipHitAudioComponent->SetSound(ConstructorStatics.CUE_SPACESHIP_HIT_SOUND.Get());
+	}
+
+	if (ConstructorStatics.CUE_SPACESHIP_ENGINE_SOUND.Get() != nullptr)
+	{
+		SpaceshipEngineAudioComponent->SetSound(ConstructorStatics.CUE_SPACESHIP_ENGINE_SOUND.Get());
+	}
+
+	if (ConstructorStatics.PS_COLLISION_EXPLODE.Get() != nullptr)
+	{
+		CollisionExplodeParticle = ConstructorStatics.PS_COLLISION_EXPLODE.Get();
+	}
+
 
 	PoitLightTop = CreateDefaultSubobject<UPointLightComponent>(TEXT("PoitLightTop"));
 	PoitLightTop->SetIntensity(100000.00);
@@ -251,7 +273,6 @@ ASpaceShipPawn::ASpaceShipPawn()
 	SpringArm->bInheritRoll = false;
 	SpringArm->bInheritYaw = false;
 
-
 	// Create camera component
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera0"));
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName); // Attach the camera
@@ -270,7 +291,6 @@ ASpaceShipPawn::ASpaceShipPawn()
 
 void ASpaceShipPawn::ShowShield()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ShowShield()"));
 	if (!IsShieldVisible)
 	{
 		IsShieldVisible = true;
@@ -327,6 +347,7 @@ void ASpaceShipPawn::NotifyHit(class UPrimitiveComponent *MyComp, class AActor *
 	if (UWorld *world = GetWorld())
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(world, CollisionExplodeParticle, HitLocation, Hit.Normal.Rotation());
+		SpaceshipHitAudioComponent->Play();
 	}
 
 	if (Other->GetClass() == ATunnelUnit::StaticClass())
@@ -339,6 +360,7 @@ void ASpaceShipPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	GetWorld()->GetTimerManager().SetTimer(DecrementFuelTimerHandle, this, &ASpaceShipPawn::DecrementFuel, 2.0f, true, 2.0f);
+	SpaceshipEngineAudioComponent->Play();
 }
 
 void ASpaceShipPawn::NotifyActorBeginOverlap(AActor *OtherActor)
@@ -350,6 +372,16 @@ void ASpaceShipPawn::NotifyActorBeginOverlap(AActor *OtherActor)
 		if (UWorld *world = GetWorld())
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(world, CollisionExplodeParticle, OtherActor->GetActorLocation(), OtherActor->GetActorRotation());
+			SpaceshipHitAudioComponent->Play();
+		}
+	}
+
+	if (OtherActor->GetName().Contains("StarObstacle"))
+	{
+		if (UWorld *world = GetWorld())
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(world, CollisionExplodeParticle, OtherActor->GetActorLocation(), OtherActor->GetActorRotation());
+			SpaceshipHitAudioComponent->Play();
 		}
 	}
 }

@@ -14,15 +14,18 @@ class BATTLEOFDISTANTHORIZ_API UBattleOfDistantHorizGameInstance : public UGameI
 {
 	GENERATED_BODY()
 public:
-	//UBattleOfDistantHorizGameInstance(const FObjectInitializer &ObjectInitializer);
+	UBattleOfDistantHorizGameInstance(const FObjectInitializer &ObjectInitializer);
 
 	void OpenLevel();
 	void ReloadGame();
+
 
 private:
 	FTimerHandle ReloadLevel;
 	FTimerHandle CountDown;
 	int count_down=3;
+
+	class USoundCue* SoundCountDown;
 private:
 	void ExecuteCountDown();
 };

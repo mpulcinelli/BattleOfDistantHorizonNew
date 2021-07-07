@@ -70,6 +70,7 @@ void AStarObstacle::PickUpMeshBeginOverlap(class UPrimitiveComponent *Overlapped
 
         isPlayer->DecrementLife(StarSizeHitPoints);
         PlasmaExplodeParticle->Activate(true);
-        SetLifeSpan(0.5f);
+
+        SetLifeSpan(0.1f);
     }
 }
