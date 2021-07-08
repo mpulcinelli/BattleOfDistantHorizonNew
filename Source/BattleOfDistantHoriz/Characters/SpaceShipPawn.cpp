@@ -326,9 +326,6 @@ void ASpaceShipPawn::Tick(float DeltaSeconds)
 	// Rotate plane
 	AddActorLocalRotation(DeltaRotation, true);
 
-	// FVector MyPosition = GetActorLocation();
-	// GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %f, y: %f, z: %f"), MyPosition.X, MyPosition.Y, MyPosition.Z));
-
 	// Call any parent class Tick implementation
 	Super::Tick(DeltaSeconds);
 }
@@ -347,12 +344,13 @@ void ASpaceShipPawn::NotifyHit(class UPrimitiveComponent *MyComp, class AActor *
 	if (UWorld *world = GetWorld())
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(world, CollisionExplodeParticle, HitLocation, Hit.Normal.Rotation());
-		SpaceshipHitAudioComponent->Play();
 	}
 
 	if (Other->GetClass() == ATunnelUnit::StaticClass())
 	{
 		DecrementLife(1);
+		if(!SpaceshipHitAudioComponent->IsPlaying())
+			SpaceshipHitAudioComponent->Play();
 	}
 }
 
@@ -372,6 +370,7 @@ void ASpaceShipPawn::NotifyActorBeginOverlap(AActor *OtherActor)
 		if (UWorld *world = GetWorld())
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(world, CollisionExplodeParticle, OtherActor->GetActorLocation(), OtherActor->GetActorRotation());
+
 			SpaceshipHitAudioComponent->Play();
 		}
 	}
