@@ -16,6 +16,7 @@ class BATTLEOFDISTANTHORIZ_API UBattleOfDistantHorizGameInstance : public UGameI
 public:
 	UBattleOfDistantHorizGameInstance(const FObjectInitializer &ObjectInitializer);
 
+
 	void OpenLevel();
 	void ReloadGame();
 
